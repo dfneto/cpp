@@ -6,23 +6,18 @@
 
 class Contact {
 
-    private:
-        //id
-        std::string firstName;
-        std::string lastName;
-        std::string nickName;
-        std::string phone;
-        std::string darkSecret;
-        std::string truncate(std::string const);
-    public:
-        Contact();
-        Contact(std::string contactInfo[5]);
-        void            createContact(std::string firstName);
-        std::string     getFirstName();
-        void     setFirstName(std::string firstName);
-        void            printContact(const int i);
-        
-
+	private:
+		std::string firstName;
+		std::string lastName;
+		std::string nickName;
+		std::string phone;
+		std::string darkSecret;
+		std::string truncate(std::string const);
+	public:
+		Contact();
+		Contact(std::string contactInfo[5]);
+		void	printContact(const int i);
+		void	printContactDetails(const int i);
 };
 
 #endif
