@@ -1,10 +1,10 @@
 #include <iostream>
-// #include "PhoneBook.hpp"
+#include "PhoneBook.hpp"
 
 int main() {
 
     std::string     userInput;
-    // PhoneBook       phoneBook;
+    PhoneBook       phoneBook;
 
     std::cout << "It's a phone book" << std::endl;
     std::cout << "Type ADD, SEARCH or EXIT" << std::endl;
@@ -12,13 +12,10 @@ int main() {
 
     while (userInput != "EXIT")
     {
-        if (userInput == "ADD") {
-            std::cout << "Weeeeeeeee" << std::endl;
-            //ADD
-            //Contact contact;
-            //criar um contato passando os valores do input: contact.create
-            //phoneBook.add(contact)
-        }
+        if (userInput == "ADD")
+            phoneBook.addContact();
+        else if (userInput == "SEARCH")
+            phoneBook.searchContact();
         else {
             std::cout << "Type ADD, SEARCH or EXIT" << std::endl;
             std::getline(std::cin, userInput);

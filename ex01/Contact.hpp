@@ -13,6 +13,9 @@ class Contact {
         std::string phone;
         std::string darkSecret;
     public:
+        void            createContact(std::string firstName);
+        std::string     getFirstName();
+        void     setFirstName(std::string firstName);
         
 
 };
