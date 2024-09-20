@@ -1,23 +1,24 @@
-NAME = megaphone
+NAME = phonebook
 
-CC = c++
+HEADER = PhoneBook.hpp #Contact.hpp
+
+CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
-SRC_FILES = Contact.cpp, PhoneBook.cpp, main.cpp
+SRC_FILES = main.cpp PhoneBook.cpp #Contact.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
-
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	$(CC) $(CFLAGS) $^ -o $@
 
-%.o : %.cpp Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
-
+%.o : %.cpp $(HEADER) Makefile
+	$(CC) $(CFLAGS) -c $< -o $@ -I.
 
 clean:
 	rm -rf $(OBJ_FILES)
+	rm $(NAME)
 
 fclean: clean
 	rm -rf $(NAME)

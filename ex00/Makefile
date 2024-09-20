@@ -18,6 +18,7 @@ $(NAME): $(OBJ_FILES)
 
 clean:
 	rm -rf $(OBJ_FILES)
+	rm $(NAME)
 
 fclean: clean
 	rm -rf $(NAME)

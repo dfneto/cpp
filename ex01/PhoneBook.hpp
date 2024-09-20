@@ -1,13 +1,13 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-#include "Contact.hpp"
+// #include "Contact.hpp"
 
 class PhoneBook {
 
-    private:
-        Contact contact[8];
-    public:
+    // private:
+    //     Contact contact[8];
+    // public:
         
 
 };

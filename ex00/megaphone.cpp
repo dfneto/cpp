@@ -17,6 +17,7 @@ int main(int argc, char **argv) {
 			i++;
 		}
 		argv++;
+		i = 0;
     }
 	std::cout << std::endl;
 	return (0);
