@@ -12,16 +12,18 @@ int main() {
 
     while (userInput != "EXIT")
     {
-        if (userInput == "ADD")
+        if (userInput == "ADD") {
             phoneBook.addContact();
-        else if (userInput == "SEARCH")
+            userInput = "";
+        }
+        else if (userInput == "SEARCH") {
             phoneBook.searchContact();
+            userInput = "";
+        }
         else {
             std::cout << "Type ADD, SEARCH or EXIT" << std::endl;
             std::getline(std::cin, userInput);
         }
-        std::cout << "Type ADD, SEARCH or EXIT" << std::endl;
-        std::getline(std::cin, userInput);
     }
     return (0);
 }
