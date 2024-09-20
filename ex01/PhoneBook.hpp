@@ -8,8 +8,7 @@ class PhoneBook {
 
     private:
         Contact     contactList[8];
-        std::string firstName;
-        int     indexCounter;
+        int         indexCounter;
     public:
         PhoneBook();
         void    addContact();
