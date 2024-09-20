@@ -4,7 +4,7 @@ PhoneBook::PhoneBook() {
     this->indexCounter = 0;
 }
 
-void    PhoneBook::addContact(){
+void    PhoneBook::addContact() {
     // forma mais estilo OO
     // std::getline(std::cin, firstName);
     // Contact contact;
@@ -34,14 +34,15 @@ void    PhoneBook::addContact(){
     indexCounter++;
 }
 
-void    PhoneBook::searchContact(){
+void    PhoneBook::searchContact() {
     if (indexCounter == 0) {
         std::cout << "Your phonebook is empty. Nothing to see here...\n";
         return;
     }
+    std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
     int i = 0;
-    while (i < 2){
-        std::cout << contactList[i % 2].getFirstName() << std::endl;
+    while (i < 2) {
+        contactList[i].printContact(i);
         i++;
     }
 }

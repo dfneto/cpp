@@ -13,7 +13,6 @@ Contact::Contact(std::string contactInfo[5]) {
     darkSecret = contactInfo[4];
 }
 
-
 void    Contact::createContact(std::string firstName) {
     this->firstName = firstName;
 }
@@ -24,5 +23,22 @@ std::string    Contact::getFirstName() {
 
 void     Contact::setFirstName(std::string firstName) {
     this->firstName = firstName;
+}
+
+std::string Contact::truncate(std::string const string) {
+    if (string.length() > 10)
+        return string.substr(0, 9) + ".";
+    else
+        return string;
+}
+
+void    Contact::printContact(const int i) {
+    if (firstName.empty())
+        return ;
+    std::cout << "|" << std::setw(10) << std::right << i;
+    std::cout << "|" << std::setw(10) << std::right << truncate(firstName);
+    std::cout << "|" << std::setw(10) << std::right << truncate(lastName);
+    std::cout << "|" << std::setw(10) << std::right << truncate(nickName) << "|";
+    std::cout << std::endl;
 }
 
