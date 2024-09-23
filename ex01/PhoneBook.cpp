@@ -1,7 +1,8 @@
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() {
-    this->indexCounter = 0;
+PhoneBook::PhoneBook(): indexCounter(0) {
+    // outra forma de setar as variaveis da classe:
+    // indexCounter = 0;
 }
 
 void    PhoneBook::addContact() {
@@ -30,20 +31,22 @@ void    PhoneBook::addContact() {
             std::cout << "Field cannot be empty... Try again!\n";   
     }
     Contact contact(contactInfo);
-    contactList[indexCounter % 2] = contact;
+    contactList[indexCounter % 8] = contact;
     indexCounter++;
 }
 
 void    PhoneBook::printContactList() {
     std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
     int i = 0;
-    while (i < 2) {
+    while (i < getSize()) {
         contactList[i].printContact(i);
         i++;
     }
 }
 
 //made by Lucas
+//Poderia passar a str por valor (uma copia ao inves de uma referencia),
+//mas eh menos eficiente que passar uma referencia
 bool PhoneBook::isNumber(const std::string& str) {
     int i = 0;
 
@@ -69,7 +72,7 @@ int PhoneBook::getSize()
 }
 
 //made by Lucas
-int PhoneBook::getSearchInput(const int n) {
+int PhoneBook::getSearchInput(const int size) {
     int tmp;
     std::string input;
     
@@ -84,8 +87,8 @@ int PhoneBook::getSearchInput(const int n) {
         std::cout << "Input is not a number!\n";
         return -1;
     }
-    tmp = std::atoi(input.c_str());
-    if (tmp < 0 || tmp >= n) //TODO: acho que aqui posso usar o indexCounter direto
+    tmp = atoi(input.c_str());
+    if (tmp < 0 || tmp >= size)
     {
         std::cout << "Invalid index!\n";
         return -1;
