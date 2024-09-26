@@ -3,9 +3,9 @@ NAME = zombie
 HEADER = Zombie.hpp
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC_FILES = main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
+SRC_FILES = main.cpp zombieHorde.cpp Zombie.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 
