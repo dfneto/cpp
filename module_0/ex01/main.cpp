@@ -4,7 +4,7 @@
 int main() {
 
     std::string     userInput;
-    PhoneBook       phoneBook;
+    PhoneBook       phoneBook;    //equivalente a: PhoneBook phoneBook = PhoneBook();
 
     std::cout << "It's a phone book" << std::endl;
     std::cout << "Type ADD, SEARCH or EXIT" << std::endl;
