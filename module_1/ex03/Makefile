@@ -1,9 +1,9 @@
 NAME = violence
 
-HEADER = Weapon.hpp HumanB.hpp HumanA.hpp
+HEADER = Weapon.hpp HumanA.hpp HumanB.hpp
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g
 
 SRC_FILES = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)

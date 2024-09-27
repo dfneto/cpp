@@ -5,13 +5,13 @@
 #include "Weapon.hpp"
 
 class HumanB {
-    std::string name;
-    Weapon weapon;
+    std::string _name;
+    Weapon      *_weapon;  // Pointer to Weapon (so it can be nullptr)
 
     public:
-        HumanB(std::string);
+        HumanB(std::string name);
 		void    attack();
-        void    setWeapon(Weapon);
+        void    setWeapon(Weapon &weapon);
 };
 
 #endif
