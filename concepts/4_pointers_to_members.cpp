@@ -1,3 +1,4 @@
+// The code demonstrates how to use pointers to member variables and member functions, as well as how to dereference them.
 #ifndef SAMPLE_CLASS_H
 # define SAMPLE_CLASS_H
 
@@ -5,15 +6,11 @@
 
 class Sample {
 public:
-    int foo;  // Public integer member
+    int foo;
 
-    // Constructor
     Sample(void) {
         foo = 0;
     };
-
-    // Destructor
-    ~Sample(void) {}
 
     // Const member function
     void bar(void) const {
@@ -32,6 +29,8 @@ int main() {
 
     // Assigning pointer-to-member-variable 'foo'
     p = &Sample::foo;
+    // p is a pointer to the foo member variable of the Sample class. 
+    // It allows access to foo via the instance object or a pointer to instance
 
     std::cout << "Value of member foo: " << instance.foo << std::endl;
     instance.*p = 21;  // Accessing 'foo' using the pointer-to-member
@@ -41,6 +40,8 @@ int main() {
 
     // Assigning pointer-to-member-function 'bar'
     f = &Sample::bar;
+    // f is a pointer to the bar member function of the Sample class.
+    // It allows calling the bar function via the instance object or a pointer to instance.
 
     (instance.*f)();  // Calling the member function using pointer-to-member-function
     (instancep->*f)();  // Calling the member function using pointer to object and pointer-to-member-function
@@ -48,3 +49,7 @@ int main() {
     return (0);
 }
 
+// When you write `instance.*p`, you're telling the compiler:
+// - `instance`: The object of `Sample` from which we want to access the member.
+// - `.*p`: The member variable (`foo` in this case) that is pointed to by `p`.
+// Similarly, when you use `instancep->*p`, you're dereferencing the pointer `instancep` to get the object and then accessing the member `foo` via the pointer `p`.

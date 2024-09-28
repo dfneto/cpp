@@ -18,10 +18,12 @@ void Harl::_error() {
 
 void    Harl::complain(std::string level) {
 	std::string	names[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	// Assigning pointer-to-member-function
 	void (Harl::*functions[4])(void) = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 
 	for (int i = 0; i < 4; i++) {
 		if (level == names[i])
+			// Calling the member function using pointer to object and pointer-to-member-function
 			(this->*functions[i])();
 	}
 }
