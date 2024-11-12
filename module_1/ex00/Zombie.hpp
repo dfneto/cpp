@@ -7,9 +7,9 @@ class Zombie {
     std::string name;
 
     public:
-        Zombie(std::string name);
-        ~Zombie();
-        void announce();
+      Zombie(std::string name);
+      ~Zombie();
+      void announce();
 };
 
 //non-member functions (outside of the class):
