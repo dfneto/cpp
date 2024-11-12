@@ -7,7 +7,7 @@ void byReference(int &ref) {
 
 //recebo o endereço
 void byPointer(int *ptr) {
-    *ptr = 20;  // Dereference to modify the original object
+    *ptr = 40;  // Dereference to modify the original object
 }
 
 //recebo uma cópia do objeto
@@ -17,10 +17,11 @@ void byValue(int val) {
 
 int main() {
     int x = 10;
-    byReference(x);                 //passo x como se fosse um objeto e não seu endereço como no ponteiro
+    byReference(x);                 //passo x como se fosse um objeto e não seu endereço como no byPointer
     std::cout << x << std::endl;  // Output: 20 (x was modified)
     byValue(x);
     std::cout << x << std::endl;  // Output: 20 (x was NOT modified)
     byPointer(&x); // Passing the address of x
+    std::cout << x << std::endl;  // Output: 20 (x was NOT modified)
     return 0;
 }
