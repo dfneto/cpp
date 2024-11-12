@@ -19,8 +19,8 @@ Zombie* zombieHorde(int n, std::string name);
 
 #endif
 
-//As I can't do Zombie* horte = new Zombie(name)[n];
-//C++ doesn’t allow you to pass arguments to constructors when creating an array with new[].
+// As I can't do Zombie* horde = new Zombie(name)[n];
+// C++ doesn’t allow you to pass arguments to constructors when creating an array with new[].
 // To initialize each Zombie object with a specific name, you'll need to:
 // Use the default constructor when allocating the array.
 // Set the names manually for each zombie after allocation using a setter

@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 
 Zombie* zombieHorde(int n, std::string name) {
-    if (n <= 0) return nullptr;
+    if (n <= 0) return NULL;
 
     // Allocate an array of n Zombies using the default constructor
     Zombie* horde = new Zombie[n];

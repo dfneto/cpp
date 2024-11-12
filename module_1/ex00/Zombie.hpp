@@ -10,6 +10,7 @@ class Zombie {
       Zombie(std::string name);
       ~Zombie();
       void announce();
+      void setName(std::string name);
 };
 
 //non-member functions (outside of the class):

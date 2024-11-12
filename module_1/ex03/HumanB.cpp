@@ -1,6 +1,6 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string name): _name(name), _weapon(nullptr) {} // Initialize weapon as nullptr
+HumanB::HumanB(std::string name): _name(name), _weapon(NULL) {} // Initialize weapon as nullptr
 
 void    HumanB::attack() {
     if (_weapon)

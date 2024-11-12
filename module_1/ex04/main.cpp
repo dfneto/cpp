@@ -26,18 +26,17 @@ int main(int argc, char **argv)
 	}
 	
 	// File paths
-    std::string sourceFile = argv[1];
     std::string destinationFile = argv[1];
 	destinationFile.append(".replace");
 
 	// Open source file for reading
-	std::ifstream inFile(sourceFile);
+	std::ifstream inFile(argv[1]);
 	if (!inFile) {
-		std::cerr << "Error opening source file: " << sourceFile << std::endl;
+		std::cerr << "Error opening source file: " << argv[1] << std::endl;
         return 1;
 	}
 	// Open destination file for writing
-    std::ofstream outFile(destinationFile);
+    std::ofstream outFile(destinationFile.c_str());
     if (!outFile) {
         std::cerr << "Error opening destination file: " << destinationFile << std::endl;
         return 1;
