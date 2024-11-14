@@ -10,6 +10,7 @@ Zombie* zombieHorde(int n, std::string name) {
     }
     return horde;
 }
-// In C++, arrays are laid out sequentially in memory, so when you allocate an array of objects, the pointer to the array (in this case, horde) points to the first element of the array. Using this pointer, you can access other elements in the array by indexing or pointer arithmetic.
-// When you create an array of n Zombie objects using new Zombie[n], the memory layout is such that each Zombie object is placed next to the previous one in memory.
-// By returning the pointer to the first element of the array, you can use pointer arithmetic or array indexing to access the other elements.
+// In C++, arrays are laid out sequentially in memory (each Zombie object is placed next to 
+// the previous one in memory), so when you allocate an array of objects using new Zombie[n],
+// the pointer to the array (in this case, horde) points to the first element of the array. Using 
+// this pointer you can access other elements in the array by indexing or pointer arithmetic.

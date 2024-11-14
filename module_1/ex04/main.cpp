@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	
-	// File paths
+	// Destination file
     std::string destinationFile = argv[1];
 	destinationFile.append(".replace");
 
