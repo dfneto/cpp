@@ -19,6 +19,7 @@ void Harl::_error() {
 void    Harl::complain(std::string level) {
 	std::string	names[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	// Assigning pointer-to-member-function
+	// No caso eu tenho um array com 4 ponteiros, cada um para o endereco de uma funcao.
 	void (Harl::*functions[4])(void) = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 
 	for (int i = 0; i < 4; i++) {

@@ -14,8 +14,8 @@ class HumanA {
 };
 
 #endif
-// É &weapon e não weapon porque preciso passar uma referência a arma e não uma cópia da arma (sem &).
-// Se passasse uma cópia
+// Usamos &weapon e não weapon porque preciso passar uma referência a arma e não uma cópia da arma (sem &).
+// Se passasse uma cópia (veja o main abaixo)
 //      Weapon club = Weapon("crude spiked club");
 //      std::cout << "The memory address of club is " << &club << std::endl;
 // 		HumanA bob("Bob", club);
