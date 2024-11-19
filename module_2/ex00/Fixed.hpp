@@ -4,12 +4,16 @@
 #include <iostream>
 
 class Fixed {
-    int _fixed;
+    int fixed;
+    static const int fractionalBits;
 
     public:
         Fixed();
+        Fixed(const Fixed &src);
+        Fixed & operator=(const Fixed &rhs);
         ~Fixed();
+        int getRawBits() const;
+        void setRawBits(int const raw);
 };
-
 
 #endif
