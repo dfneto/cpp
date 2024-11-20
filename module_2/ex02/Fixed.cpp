@@ -99,7 +99,7 @@ Fixed   &Fixed::operator++() {
 }
 
 //Returns a copy of the object and increment the current object (not the copy)
-Fixed   Fixed::operator++(int) {
+Fixed   Fixed::operator++(int) { //TODO: este nao permite chaining???
     //this é um ponteiro, ao fazer a deferência pegamos seu objeto
     Fixed temp(*this);  // Create a copy of the current object
     ++(*this);          // Increment the current object
