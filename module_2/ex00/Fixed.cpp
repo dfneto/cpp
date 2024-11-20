@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-const int Fixed::fractionalBits = 8; //TODO: pq sem static e o lucas tem? nao basta const? pq da erro com static?
+const int Fixed::fractionalBits = 8;
 
 Fixed::Fixed() : fixed(0) {
     std::cout << "Default constructor called" << std::endl;

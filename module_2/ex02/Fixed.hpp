@@ -58,6 +58,6 @@ class Fixed {
 		static const Fixed &max(const Fixed &a, const Fixed &b);
 };
 
-std::ostream& operator<<(std::ostream& os, const Fixed& fixed); //TODO: pq &?
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed); //devolvo um objeto do tipo ostream e assim posso fazer chaining
 
 #endif

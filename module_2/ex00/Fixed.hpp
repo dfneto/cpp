@@ -5,7 +5,7 @@
 
 class Fixed {
     int fixed;
-    static const int fractionalBits; //TODO: pq static?
+    static const int fractionalBits;
 
     public:
         Fixed();

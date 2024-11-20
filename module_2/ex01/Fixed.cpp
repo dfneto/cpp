@@ -54,7 +54,7 @@ int Fixed::toInt() const {
 }
 
 float Fixed::toFloat() const {
-    return static_cast<float>(this->fixed) / (1 << fractionalBits); //TODO:EXPERIMENTAR SEM O CAST
+    return static_cast<float>(this->fixed) / (1 << fractionalBits);
 }
 
 //An overload of the insertion (<<) operator allows you to define how your custom class 
