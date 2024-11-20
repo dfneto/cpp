@@ -20,8 +20,26 @@ class Fixed {
 		void	setRawBits(int const raw);
 		float	toFloat() const;
 		int		toInt() const;
+
+		//Arithmetic operators
+		Fixed	operator+(const Fixed &rhs) const;
+		Fixed	operator-(const Fixed &rhs) const;
+		Fixed	operator*(const Fixed &rhs) const;
+		Fixed	operator/(const Fixed &rhs) const;
+
+		//Comparison operators
+		bool	operator>(const Fixed& rhs) const;
+		bool	operator>=(const Fixed& rhs) const;
+		bool	operator<(const Fixed& rhs) const;
+		bool	operator<=(const Fixed& rhs) const;
+		bool	operator==(const Fixed& rhs) const;
+		bool	operator!=(const Fixed& rhs) const;
+
+		//Increment/decremente operators
+		Fixed	&operator++(); 	//a++
+		Fixed	&operator++(int);	//++a
 };
 
-std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed); //TODO: pq &?
 
 #endif

@@ -1,22 +1,111 @@
 #include "Fixed.hpp"
 
-int main( void ) {
-    Fixed a;
-    Fixed const b(10); //const torna o objeto b constante, imutável. Logo não posso alterar suas variáveis com em b.setRawBits(22);
-    Fixed const c(42.42f);
-    Fixed const d(b);
-    a = Fixed(1234.4321f);
-    std::cout << "a is " << a << std::endl;
-    std::cout << "b is " << b << std::endl;
-    std::cout << "c is " << c << std::endl;
-    std::cout << "d is " << d << std::endl;
-    std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-    std::cout << "d is " << d.toInt() << " as integer" << std::endl;
-    std::cout << "a is " << a.toFloat() << " as float" << std::endl;
-    std::cout << "b is " << b.toFloat() << " as float" << std::endl;
-    std::cout << "c is " << c.toFloat() << " as float" << std::endl;
-    std::cout << "d is " << d.toFloat() << " as float" << std::endl;
+void testComparisonOperators()
+{
+    Fixed a(3.1415f);
+    Fixed b(2.7182f);
+    Fixed c(3.1415f);
+
+    std::cout << "Comparison Operators Test:" << std::endl;
+    std::cout << "a: " << a << " b: " << b << " c: " << c << std::endl;
+    std::cout << "a > b: " << (a > b) << std::endl;
+    std::cout << "a < b: " << (a < b) << std::endl;
+    std::cout << "a >= b: " << (a >= b) << std::endl;
+    std::cout << "a <= b: " << (a <= b) << std::endl;
+    std::cout << "a == b: " << (a == b) << std::endl;
+    std::cout << "a == c: " << (a == c) << std::endl;
+    std::cout << "a != b: " << (a != b) << std::endl;
+    std::cout << std::endl;
+}
+
+void testArithmeticOperators()
+{
+    Fixed a(3.1415f);
+    Fixed b(2);
+    Fixed c(0);
+
+    std::cout << "Arithmetic Operators Test:" << std::endl;
+    std::cout << "a: " << a << " b: " << b << " c: " << c << std::endl;
+    std::cout << "a + b: " << a + b << std::endl;
+    std::cout << "a - b: " << a - b << std::endl;
+    std::cout << "a * b: " << a * b << std::endl;
+    std::cout << "a / b: " << a / b << std::endl;
+    std::cout << "b + c: " << b + c << std::endl;
+    std::cout << "b - c: " << b - c << std::endl;
+    std::cout << "b * c: " << b * c << std::endl;
+    try
+    {
+        std::cout << "b / c: " << b / c << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    std::cout << std::endl;
+}
+
+void testIncrementDecrementOperators()
+{
+    Fixed a(3.1415f);
+    Fixed b(2);
+
+    std::cout << "Increment/Decrement Operators Test:" << std::endl;
+    std::cout << "a: " << a << " b: " << b << std::endl;
+    std::cout << "a before pre-increment: " << a << std::endl;
+    ++a;
+    std::cout << "a after pre-increment: " << a << std::endl;
+
+    // std::cout << "a before post-increment: " << a << std::endl;
+    // a++;
+    // std::cout << "a after post-increment: " << a << std::endl;
+
+    // std::cout << "b before pre-decrement: " << b << std::endl;
+    // --b;
+    // std::cout << "b after pre-decrement: " << b << std::endl;
+
+    // std::cout << "b before post-decrement: " << b << std::endl;
+    // b--;
+    // std::cout << "b after post-decrement: " << b << std::endl;
+    std::cout << std::endl;
+}
+
+// void testMinAndMaxFunctions()
+// {
+//     Fixed a(3.1415f);
+//     Fixed b(2.7182f);
+
+//     std::cout << "Min and Max Functions Test:" << std::endl;
+//     std::cout << "a: " << a << " b: " << b << std::endl;
+//     std::cout << "Minimum of a and b: " << Fixed::min(a, b) << std::endl;
+
+//     std::cout << "Maximum of a and b: " << Fixed::max(a, b) << std::endl;
+//     std::cout << std::endl;
+// }
+
+// void testSubject()
+// {
+//     Fixed a;
+//     Fixed const b(Fixed(5.05f) * Fixed(2));
+//     std::cout << "Subject Tests:" << std::endl;
+//     std::cout << "a: " << a << " b: " << b << std::endl;
+//     std::cout << a << std::endl;
+//     std::cout << ++a << std::endl;
+//     std::cout << a << std::endl;
+//     std::cout << a++ << std::endl;
+//     std::cout << a << std::endl;
+//     std::cout << b << std::endl;
+//     std::cout << Fixed::max(a, b) << std::endl;
+//     std::cout << std::endl;
+// }
+
+int main()
+{
+    // testSubject();
+    testComparisonOperators();
+    testArithmeticOperators();
+    testIncrementDecrementOperators();
+    // testMinAndMaxFunctions();
+
     return 0;
 }

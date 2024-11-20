@@ -19,7 +19,7 @@ Fixed::Fixed(const int value) {
 Fixed::Fixed(const float value) {
     std::cout << "Float constructor called" << std::endl;
     this->fixed = roundf(value * (1 << fractionalBits));
-    // std::cout << "Armazenando fixed=" << this->fixed << std::endl;
+    std::cout << "The raw value " << value << " is saved as fixed=" << this->fixed << std::endl;
 }
 
 Fixed::Fixed(const Fixed &src) {

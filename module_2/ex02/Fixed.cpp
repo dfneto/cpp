@@ -3,40 +3,31 @@
 const int Fixed::fractionalBits = 8;
 
 Fixed::Fixed() : fixed(0) {
-    std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int value) {
-    std::cout << "Int constructor called" << std::endl;
     this->fixed = value * (1 << fractionalBits);
 }
 
 Fixed::Fixed(const float value) {
-    std::cout << "Float constructor called" << std::endl;
     this->fixed = roundf(value * (1 << fractionalBits));
-    // std::cout << "Armazenando fixed=" << this->fixed << std::endl;
 }
 
 Fixed::Fixed(const Fixed &src) {
-    std::cout << "Copy constructor called" << std::endl;
     this->fixed = src.fixed;
     return;
 }
 
 Fixed &Fixed::operator=(const Fixed &rhs) {
-    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &rhs) {
         fixed = rhs.fixed;
     }
     return *this;
 }
 
-Fixed::~Fixed() {
-    std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed() {}
 
 int Fixed::getRawBits() const {
-    std::cout << "getRawBits member function called" << std::endl;
     return this->fixed;
 }
 
@@ -50,6 +41,60 @@ int Fixed::toInt() const {
 
 float Fixed::toFloat() const {
     return static_cast<float>(this->fixed) / (1 << fractionalBits);
+}
+
+Fixed Fixed::operator+(const Fixed &rhs) const {
+    //estou criando uma nova instância que apesar de gastar um pouco de memória
+    //me permite fazer chaining, coisa que não poderia se retornasse um ponteiro
+    //para stack
+    return Fixed(this->toFloat() + rhs.toFloat()); 
+}
+
+Fixed Fixed::operator-(const Fixed &rhs) const {
+    return Fixed(this->toFloat() - rhs.toFloat());
+}
+
+Fixed Fixed::operator*(const Fixed &rhs) const {
+    return Fixed(this->toFloat() * rhs.toFloat());
+}
+
+Fixed Fixed::operator/(const Fixed &rhs) const {
+    if (rhs.toFloat() == 0.0)
+        throw std::invalid_argument("Can not divide by zero!");
+    return Fixed(this->toFloat() / rhs.toFloat());
+}
+
+bool Fixed::operator>(const Fixed &rhs) const {
+    return (this->toFloat() > rhs.toFloat());
+}
+
+bool Fixed::operator>=(const Fixed &rhs) const {
+    return (this->toFloat() >= rhs.toFloat());
+}
+
+bool Fixed::operator<(const Fixed &rhs) const {
+	return toFloat() < rhs.toFloat();
+}
+
+bool Fixed::operator<=(const Fixed &rhs) const {
+	return toFloat() <= rhs.toFloat();
+}
+
+bool Fixed::operator==(const Fixed &rhs) const {
+	return toFloat() == rhs.toFloat();
+}
+
+bool Fixed::operator!=(const Fixed &rhs) const {
+	return toFloat() != rhs.toFloat();
+}
+
+Fixed   &Fixed::operator++() {
+    fixed++;
+    return *this;
+}
+
+Fixed   &Fixed::operator++(int) {
+    this->fixed
 }
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {

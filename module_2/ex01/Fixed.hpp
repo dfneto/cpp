@@ -6,7 +6,7 @@
 
 class Fixed {
 	int fixed;
-	static const int fractionalBits; //o que faz static?
+	static const int fractionalBits;
 
 	public:
 		Fixed();

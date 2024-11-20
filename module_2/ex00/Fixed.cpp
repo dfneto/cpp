@@ -21,7 +21,9 @@ Fixed &Fixed::operator=(const Fixed &rhs) {
     if (this != &rhs) { //para evitar que eu atribua a = a
         fixed = rhs.fixed;
     }
-    return *this; // Return *this to allow chaining. Sem esse return a = b = c não é possível 
+    return *this; // Return *this to allow chaining. Sem esse return a = b = c não é possível, porque b seria igual a c,
+                  // mas não retornaria nada para atribuir a a. Agora, quando retornamos uma referência Fixed (&Fixed) e por
+                  // isso fazemos um return *this, ao fazer b = c estamos atribuindo c a b e retornando b que será atribuído a a.
     /*
     Why *this?
     1. this Is a Pointer:
