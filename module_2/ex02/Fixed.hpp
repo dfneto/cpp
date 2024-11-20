@@ -52,10 +52,9 @@ class Fixed {
 		Fixed	operator--(int);	//a--
 
 		//Max min functions
-		static Fixed &min(Fixed &a, Fixed &b);
+		static Fixed &min(Fixed &a, Fixed &b); //Fixed::min(a, b) = Fixed(42);  // Allowed because the return value is non-const
 		static Fixed &max(Fixed &a, Fixed &b);
 		static const Fixed &min(const Fixed &a, const Fixed &b);
-		static		 Fixed &min(const Fixed &a, const Fixed &b); //TODO: pq static e pq const não é permitido?
 		static const Fixed &max(const Fixed &a, const Fixed &b);
 };
 

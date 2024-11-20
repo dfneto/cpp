@@ -119,18 +119,22 @@ Fixed   Fixed::operator--(int) {
     return temp;
 }
 
-Fixed &Fixed::min(Fixed &a, Fixed &b) { //TODO: pq não static?
-    return (a < b) ? a : b;
+//When you define the static member function outside of the class, you do not repeat the static keyword in the definition
+Fixed &Fixed::min(Fixed &a, Fixed &b) {
+    return (a.getRawBits() <= b.getRawBits()) ? a : b;
 }
 
-Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
-    return (a < b) ? const_cast<Fixed &>(a) : const_cast<Fixed &>(b); //TODO: pq esse const_cast? Qual a vantagem dessa função sobre a outra?
+Fixed &Fixed::max(Fixed &a, Fixed &b) {
+    return (a.getRawBits() >= b.getRawBits()) ? a : b;
 }
 
-// Fixed &Fixed::min(Fixed &first, Fixed &second) { return first.getRawBits() >= second.getRawBits() ? second : first; }
-// Fixed &Fixed::max(Fixed &first, Fixed &second) { return first.getRawBits() >= second.getRawBits() ? first : second; }
-// const Fixed &Fixed::min(const Fixed &first, const Fixed &second) { return first.getRawBits() >= second.getRawBits() ? second : first; }
-// const Fixed &Fixed::max(const Fixed &first, const Fixed &second) { return first.getRawBits() >= second.getRawBits() ? first : second; }
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
+    return (a.getRawBits() <= b.getRawBits()) ? a : b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
+    return (a.getRawBits() >= b.getRawBits()) ? a : b;
+}
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {
     os << fixed.toFloat();
