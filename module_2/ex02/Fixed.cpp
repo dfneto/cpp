@@ -88,14 +88,49 @@ bool Fixed::operator!=(const Fixed &rhs) const {
 	return toFloat() != rhs.toFloat();
 }
 
+//Returns the current object (*this) by reference, meaning no 
+//new object is created, and the caller operates on the same object.
+//Returning a reference avoids creating a copy of the object, 
+//which is more efficient. It allows chained operations like
+//++x = y; // This works because `++x` returns a reference to the original `x`.
 Fixed   &Fixed::operator++() {
-    fixed++;
+    ++fixed;
     return *this;
 }
 
-Fixed   &Fixed::operator++(int) {
-    this->fixed
+//Returns a copy of the object and increment the current object (not the copy)
+Fixed   Fixed::operator++(int) {
+    //this é um ponteiro, ao fazer a deferência pegamos seu objeto
+    Fixed temp(*this);  // Create a copy of the current object
+    ++(*this);          // Increment the current object
+    // ++(*this); eh equivalente a: ++fixed, que incrementa somente fixed
+    return temp;        // Return the copy
+    
 }
+
+Fixed   &Fixed::operator--() {
+    --fixed;
+    return *this;
+}
+
+Fixed   Fixed::operator--(int) {
+    Fixed temp(fixed);
+    --fixed;
+    return temp;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b) { //TODO: pq não static?
+    return (a < b) ? a : b;
+}
+
+Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
+    return (a < b) ? const_cast<Fixed &>(a) : const_cast<Fixed &>(b); //TODO: pq esse const_cast? Qual a vantagem dessa função sobre a outra?
+}
+
+// Fixed &Fixed::min(Fixed &first, Fixed &second) { return first.getRawBits() >= second.getRawBits() ? second : first; }
+// Fixed &Fixed::max(Fixed &first, Fixed &second) { return first.getRawBits() >= second.getRawBits() ? first : second; }
+// const Fixed &Fixed::min(const Fixed &first, const Fixed &second) { return first.getRawBits() >= second.getRawBits() ? second : first; }
+// const Fixed &Fixed::max(const Fixed &first, const Fixed &second) { return first.getRawBits() >= second.getRawBits() ? first : second; }
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {
     os << fixed.toFloat();

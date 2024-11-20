@@ -56,32 +56,32 @@ void testIncrementDecrementOperators()
     ++a;
     std::cout << "a after pre-increment: " << a << std::endl;
 
-    // std::cout << "a before post-increment: " << a << std::endl;
-    // a++;
-    // std::cout << "a after post-increment: " << a << std::endl;
+    std::cout << "a before post-increment: " << a << std::endl;
+    a++;
+    std::cout << "a after post-increment: " << a << std::endl;
 
-    // std::cout << "b before pre-decrement: " << b << std::endl;
-    // --b;
-    // std::cout << "b after pre-decrement: " << b << std::endl;
+    std::cout << "b before pre-decrement: " << b << std::endl;
+    --b;
+    std::cout << "b after pre-decrement: " << b << std::endl;
 
-    // std::cout << "b before post-decrement: " << b << std::endl;
-    // b--;
-    // std::cout << "b after post-decrement: " << b << std::endl;
+    std::cout << "b before post-decrement: " << b << std::endl;
+    b--;
+    std::cout << "b after post-decrement: " << b << std::endl;
     std::cout << std::endl;
 }
 
-// void testMinAndMaxFunctions()
-// {
-//     Fixed a(3.1415f);
-//     Fixed b(2.7182f);
+void testMinAndMaxFunctions()
+{
+    Fixed a(3.1415f);
+    Fixed b(2.7182f);
 
-//     std::cout << "Min and Max Functions Test:" << std::endl;
-//     std::cout << "a: " << a << " b: " << b << std::endl;
-//     std::cout << "Minimum of a and b: " << Fixed::min(a, b) << std::endl;
+    std::cout << "Min and Max Functions Test:" << std::endl;
+    std::cout << "a: " << a << " b: " << b << std::endl;
+    std::cout << "Minimum of a and b: " << Fixed::min(a, b) << std::endl;
 
-//     std::cout << "Maximum of a and b: " << Fixed::max(a, b) << std::endl;
-//     std::cout << std::endl;
-// }
+    std::cout << "Maximum of a and b: " << Fixed::max(a, b) << std::endl;
+    std::cout << std::endl;
+}
 
 // void testSubject()
 // {

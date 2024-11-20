@@ -6,7 +6,7 @@ Fixed::Fixed() : fixed(0) {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &src) {
+Fixed::Fixed(const Fixed &src) { //& aqui quer dizer que estou passando um objeto
     std::cout << "Copy constructor called" << std::endl;
     this->fixed = src.fixed;
     return;
