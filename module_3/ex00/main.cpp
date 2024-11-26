@@ -18,8 +18,9 @@ int main()
 
 	std::cout << std::endl << ">> Test copy constructor and copy assignment operator" << std::endl << std::endl;
 	ClapTrap claptrap3;
-	claptrap3 = claptrap1;
-	ClapTrap claptrap4(claptrap2);
+	claptrap3 = claptrap2;
+	
+    ClapTrap claptrap4(claptrap2); //chama o construtor com objeto e o operator=
 
 	claptrap3.attack("Target3");
 	claptrap4.attack("Target4");

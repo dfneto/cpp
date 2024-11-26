@@ -8,7 +8,8 @@ Fixed::Fixed() : fixed(0) {
 
 Fixed::Fixed(const Fixed &src) { //ampersan como parâmetro quer dizer que estou passando um objeto
     std::cout << "Copy constructor called" << std::endl;
-    this->fixed = src.fixed;
+    this->fixed = src.fixed; 
+    // *this = src; Faz o mesmo que this->fixed = src.fixed só que chama também o assignment operator (operator=) em seguida
     return;
 }
 

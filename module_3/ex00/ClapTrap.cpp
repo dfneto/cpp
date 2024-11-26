@@ -12,24 +12,27 @@ ClapTrap::ClapTrap(const std::string name) : name(name), hitPoints(10), energyPo
     std::cout << "Creating " << name << " clap trap (named constructor)" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &src) {
-    std::cout << "Making a copy of " << name << "clap trap (copy constructor)" << std::endl;
-    *this = src; //TODO: como o compilador sabe que tem que fazer uma cópia dos atributos de src para os atributos de this?
-}
-
 ClapTrap::~ClapTrap() {
     std::cout << "ClapTrap " << this->name << " destroyed!" << std::endl;
 }
 
+//Esse construtor chama o operador= em seguida
+ClapTrap::ClapTrap(const ClapTrap &src) {
+    std::cout << "Making a copy of " << name << "clap trap (copy constructor)" << std::endl;
+    *this = src; // It invokes the assignment operator!
+    //Como o compilador sabe que tem que fazer uma cópia dos atributos de src para os atributos de this? Porque ele chama
+    //o operator= e lá eu defino que ele deve copiar os atributos de src para this.
+}
+
 ClapTrap &ClapTrap::operator=(const ClapTrap &rhs) {
     if (this != &rhs) {
-        // *this = rhs; TODO: como que neste caso o compilador não sabe o que fazer??
+        // *this = rhs; Aqui o compilador não saberia tratar isso e por isso tenho que fazer as associações abaixo
         this->name = rhs.name + "_assignmentCopy";
 		this->hitPoints = rhs.hitPoints;
 		this->energyPoints = rhs.energyPoints;
 		this->attackDamage = rhs.attackDamage;
     }
-    std::cout << "ClapTrap Copy Assignment Constructor - " << name << std::endl;
+    std::cout << "Creating " << name << " (copy assignment constructor)" << std::endl;
     return *this;
 }
 

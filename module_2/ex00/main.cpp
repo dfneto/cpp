@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-int main( void ) {
+int main() {
     Fixed a;
     std::cout << a.getRawBits() << std::endl;
 	a.setRawBits(42);
