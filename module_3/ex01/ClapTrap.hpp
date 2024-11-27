@@ -4,7 +4,7 @@
 #include <iostream>
 
 class ClapTrap {
-	private:
+	protected:
 		std::string		name;
 		int	hitPoints;
 		int	energyPoints;
@@ -18,7 +18,7 @@ class ClapTrap {
 		
 		ClapTrap & operator=(const ClapTrap &rhs);
 		
-		void	attack(const std::string& target); //TODO: pq & e não somente uma string?
+		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
 		void	printInfo();

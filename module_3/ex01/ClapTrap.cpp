@@ -16,12 +16,10 @@ ClapTrap::~ClapTrap() {
     std::cout << "ClapTrap " << this->name << " destroyed!" << std::endl;
 }
 
-//Esse construtor chama o operador= em seguida por causa de *this = src
+
 ClapTrap::ClapTrap(const ClapTrap &src) {
-    std::cout << "Making a copy of " << name << "clap trap (copy constructor)" << std::endl;
-    *this = src; // It invokes the assignment operator!
-    //Como o compilador sabe que tem que fazer uma cópia dos atributos de src para os atributos de this? Porque ele chama
-    //o operator= e lá eu defino que ele deve copiar os atributos de src para this.
+    std::cout << "Making a copy of " << name << " clap trap (copy constructor)" << std::endl;
+    *this = src;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &rhs) {
