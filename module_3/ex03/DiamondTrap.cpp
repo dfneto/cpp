@@ -3,7 +3,7 @@
 DiamondTrap::DiamondTrap() {
     name = "DefaultDiamond";
     ClapTrap::name = name +  "_clap_name";
-    hitPoints = FragTrap::baseHP;
+    hitPoints = FragTrap::hitPoints;
     energyPoints = ScavTrap::baseEP;
     attackDamage = FragTrap::baseAttack;
     std::cout << "DiamondTrap Default Constructor (name: " << name << ")" << std::endl;
@@ -12,7 +12,7 @@ DiamondTrap::DiamondTrap() {
 DiamondTrap::DiamondTrap(const std::string str) {
     this->name = str;
     this->ClapTrap::name = name + "_clap_name";
-	this->hitPoints = FragTrap::baseHP;
+	this->hitPoints = FragTrap::hitPoints;
 	this->energyPoints = ScavTrap::baseEP;
 	this->attackDamage = FragTrap::baseAttack;
     std::cout << "Creating " << name << " diamond trap (diamond named constructor)" << std::endl;
@@ -42,9 +42,9 @@ void	DiamondTrap::attack(const std::string& target) {
     this->ScavTrap::attack(target);
 }
 
-void DiamondTrap::setName(std::string name) {
+void DiamondTrap::setName(std::string newName) {
     std::cout << "My old name: " << this->name << std::endl;
-    this->name = name;
+    this->name = newName;
     std::cout << "My new name: " << this->name << std::endl;
 }
 

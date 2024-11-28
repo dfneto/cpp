@@ -1,7 +1,9 @@
 #include "FragTrap.hpp"
 
+// int FragTrap::baseAttack = 100;
+
 FragTrap::FragTrap() : ClapTrap("DefatulFrag") {
-    hitPoints = 100;
+    hitPoints = 999;
     energyPoints = 100;
     attackDamage = 30;
     std::cout << "Frag default constructor" << std::endl;
