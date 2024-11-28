@@ -5,7 +5,7 @@
 
 class ScavTrap : virtual public ClapTrap {
         protected:
-                const static int baseEP = 50;
+                const static int baseEP = 51;
 	public:
                 ScavTrap();
                 ScavTrap(const std::string name);

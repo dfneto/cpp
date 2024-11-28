@@ -5,7 +5,7 @@ ClapTrap::ClapTrap() {
     this->hitPoints = 10;
     this->energyPoints = 10;
     this->attackDamage = 0;
-    std::cout << "Creating " << name << " clap trap (default constructor)" << std::endl;
+    std::cout << "Clap default constructor (name: " << name << ")" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string name) : name(name), hitPoints(10), energyPoints(10), attackDamage(0) {
@@ -67,7 +67,7 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 }
 
 void ClapTrap::printInfo() {
-	std::cout << "Hello!\nI am " << name << "." << std::endl;
+	std::cout << "Hello from ClapTrap!\nI am " << name << "." << std::endl;
 	std::cout << "My stats:\nHit points: " << hitPoints << "\nEnergy points: " << energyPoints << "\nAttack damage: " << attackDamage << std::endl;
 }
 

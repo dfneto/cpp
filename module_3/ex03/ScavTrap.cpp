@@ -29,12 +29,11 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &rhs) {
 }
 
 void    ScavTrap::attack(const std::string& target) {
-    ClapTrap::attack(target);
+    // ClapTrap::attack(target);
     std::cout << "ScavTrap " << name << " attacks " << target << ", causing " << attackDamage << " points of damage!" << std::endl;
 }
 
-void ScavTrap::guardGate()
-{
+void ScavTrap::guardGate() {
 	std::cout << name << " hold the door\nhold the door\nhold door\nholdoor\nhodor\nhodor\nhodor" << std::endl;
 }
 
