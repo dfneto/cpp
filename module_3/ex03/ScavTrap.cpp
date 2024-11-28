@@ -12,7 +12,6 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name) {
     energyPoints = 50;
     attackDamage = 20;
     std::cout << "Creating " << name << " scav trap (scav named constructor)" << std::endl;
-
 }
 
 ScavTrap::ScavTrap(const ScavTrap &src) : ClapTrap(src) {
@@ -34,7 +33,8 @@ void    ScavTrap::attack(const std::string& target) {
     std::cout << "ScavTrap " << name << " attacks " << target << ", causing " << attackDamage << " points of damage!" << std::endl;
 }
 
-void ScavTrap::guardGate() {
+void ScavTrap::guardGate()
+{
 	std::cout << name << " hold the door\nhold the door\nhold door\nholdoor\nhodor\nhodor\nhodor" << std::endl;
 }
 
