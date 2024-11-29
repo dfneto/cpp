@@ -3,7 +3,7 @@ NAME = diamond_trap
 HEADER = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
 
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98 -pedantic -g
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g # -Wshadow 
 
 SRC_FILES = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)

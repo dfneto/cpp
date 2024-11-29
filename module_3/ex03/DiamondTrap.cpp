@@ -22,7 +22,12 @@ DiamondTrap::~DiamondTrap() {
     std::cout << "DiamondTrap " << this->name << " destroyed!" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap &src) {
+//In the copy constructor, explicit base class copying is required to ensure 
+//the entire derived object (including its base class subobjects) is correctly duplicated, because
+//the compiler cannot assume how to handle the copying of base class subobjects. Should it:
+//Call the copy constructor of the base class?
+//Call the default constructor of the base class and copy members manually?the compiler cannot assume how to handle the copying of base class subobjects. Should it:
+DiamondTrap::DiamondTrap(const DiamondTrap &src) : ClapTrap(src), ScavTrap(src), FragTrap(src) {
     *this = src; //Isso chama o operator=
     std::cout << "Making a copy of " << name << " diamond trap (diamond copy constructor)" << std::endl;
 }
