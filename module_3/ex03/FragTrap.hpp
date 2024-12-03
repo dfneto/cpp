@@ -2,6 +2,7 @@
 #define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
+#include <iostream>
 
 //virtual para que a classe que herde de FlagTrap e de ClapTrap
 //ao mesmo tempo tenha somente uma cópia dos atributos

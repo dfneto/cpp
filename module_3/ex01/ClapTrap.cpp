@@ -30,7 +30,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &rhs) {
 		this->energyPoints = rhs.energyPoints;
 		this->attackDamage = rhs.attackDamage;
     }
-    std::cout << "Creating " << name << " (copy assignment constructor)" << std::endl;
+    std::cout << "Creating " << name << " (clap operator=)" << std::endl;
     return *this;
 }
 

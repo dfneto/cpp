@@ -16,7 +16,7 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name) {
 }
 
 ScavTrap::ScavTrap(const ScavTrap &src) : ClapTrap(src) {
-    std::cout << "Making a copy of " << name << " scav trap (scav copy constructor)" << std::endl;
+    std::cout << "2Making a copy of " << name << " scav trap (scav copy constructor)" << std::endl;
 }
 
 ScavTrap::~ScavTrap() {
@@ -24,8 +24,9 @@ ScavTrap::~ScavTrap() {
 }
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &rhs) {
+    std::cout << "0 Entrou!!!" << std::endl;
     ClapTrap::operator=(rhs);
-    std::cout << "Creating " << name << " (scav copy assignment constructor)" << std::endl;
+    std::cout << "1Creating " << name << " (scav operator=)" << std::endl;
     return *this;
 }
 
