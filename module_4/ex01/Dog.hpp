@@ -9,7 +9,6 @@ class Dog : public Animal
 {
     private:
         Brain* brain;
-
     public:
         Dog();
         Dog(const Dog& ref);
@@ -17,6 +16,7 @@ class Dog : public Animal
 
         Dog&	operator=(const Dog& ref);
         void    makeSound() const;
+        void	printBrain() const;
 
     };
 

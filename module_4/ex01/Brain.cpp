@@ -1,14 +1,11 @@
 #include "Brain.hpp"
 #include <iostream>
 
-Brain::Brain()
-{
+Brain::Brain() {
 	std::cout << "Brain Default Constructor" << std::endl;
 }
 
-
-Brain::Brain(const Brain& ref)
-{
+Brain::Brain(const Brain& ref) {
 	if (this != &ref)
 	{
 		for (int i = 0; i < 100; i++)

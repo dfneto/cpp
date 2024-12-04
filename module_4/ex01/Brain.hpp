@@ -5,9 +5,9 @@
 
 class Brain
 {
-private:
-	std::string	ideas[100]; //TODO: pq private and no public?
+// private:
 public:
+	std::string	ideas[100];
 
 	Brain();
 	Brain(const Brain& ref);

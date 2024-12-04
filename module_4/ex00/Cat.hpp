@@ -2,7 +2,7 @@
 # define CAT_HPP
 
 #include <Animal.hpp>
-#include <string> //TODO: pa que??
+#include <string>
 #include <iostream>
 
 class Cat : public Animal
@@ -13,8 +13,7 @@ class Cat : public Animal
         ~Cat();
 
         Cat&	operator=(const Cat& ref);
-        virtual void    makeSound() const; //TODO: tirar o virtuall e ver sse da igual
-
+        virtual void    makeSound() const;
     };
 
 #endif
