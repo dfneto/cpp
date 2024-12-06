@@ -16,8 +16,10 @@ Cat::~Cat() {
 }
 
 Cat&	Cat::operator=(const Cat& ref) {
-	if (this != &ref) //TODO: fix it!
+	if (this != &ref){
 		this->type = ref.type;
+		this->brain = new Brain(*ref.brain);
+	}
 	std::cout << "Cat Copy Assignment Constructor" << std::endl;
 	return (*this);
 }

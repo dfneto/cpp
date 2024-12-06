@@ -39,7 +39,9 @@ void    Dog::makeSound() const
 	std::cout << "Dog noises..." << std::endl;
 }
 
-void	Dog::printBrain() const
-{
+void	Dog::printBrain() const {
+	//The Brain object itself and its ideas array share the same starting 
+	//address because ideas is the first member of the Brain class. There
+	//is no offset or padding before ideas.
 	std::cout << "Type: " << this->type << ". Brain: " << this->brain << ". Ideas: " << this->brain->ideas << std::endl;
 }

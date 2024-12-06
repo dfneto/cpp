@@ -4,8 +4,6 @@
 #include "Dog.hpp"
 #include "Brain.hpp"
 
-//TODO: ver a deep copy vs shallow copy
-
 void subjectTest(void)
 {
 	std::cout << ">> Subject tests:" << std::endl;
@@ -47,17 +45,17 @@ void copyTest(void)
 	copy.printBrain();
 }
 
-//AQUI: TODO: quero chamar o construtor com parametro de dog e o de brain que faca a copia de ideas e entender pq 
-//Dog brain: Type: Dog. Brain: 0x55965d3dc2c0. Ideas: 0x55965d3dc2c0 eh o mesmo ponteiro
 void objectConstructorTest() {
 	std::cout << ">> Object Constructor tests:" << std::endl;
 	Dog dog;
-	Dog newDopy(dog);
+	Dog newDog;
+	std::cout << ">> newDog = dog" << std::endl;
+	newDog = dog;
 
 	std::cout << "Dog brain: ";
 	dog.printBrain();
 	std::cout << "Copy brain: ";
-	newDopy.printBrain();
+	newDog.printBrain();
 }
 
 int main() {

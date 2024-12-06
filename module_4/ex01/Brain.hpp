@@ -5,7 +5,7 @@
 
 class Brain
 {
-// private:
+// private: //TODO: ides deve ser private
 public:
 	std::string	ideas[100];
 
