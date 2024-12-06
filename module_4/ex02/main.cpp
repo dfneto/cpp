@@ -6,6 +6,7 @@
 
 void subjectTest(void)
 {
+	// Animal animal;
 	std::cout << ">> Subject tests:" << std::endl;
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
