@@ -21,7 +21,8 @@ class Bureaucrat {
 		Bureaucrat&			operator=(const Bureaucrat &rhs);
 
 		const std::string 	getName() const;
-		int		 	getGrade() const;
+		int		 			getGrade() const;
+		void				setName(std::string);
 		void				incrementGrade(void);
 		void				decrementGrade(void);
 
@@ -29,7 +30,7 @@ class Bureaucrat {
 			public:
 				const char *what() const throw();
 		};
-		class GradeTooLowException : public std::out_of_range { //TODO: pq funciona com out_of_range? Sera pq vem do std::exception?
+		class GradeTooLowException : public std::out_of_range { //out_of_range is a subclass of std::exception
 			public:
 				GradeTooLowException(std::string msg);
 		};
