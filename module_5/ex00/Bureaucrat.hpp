@@ -15,13 +15,13 @@ class Bureaucrat {
 	public:
 		Bureaucrat();
 		Bureaucrat(const Bureaucrat &src);
-		// Bureaucrat(std::string n, int g); todo: FAZer?
+		Bureaucrat(std::string, int);
 		~Bureaucrat();
 		
 		Bureaucrat&			operator=(const Bureaucrat &rhs);
 
 		const std::string 	getName() const;
-		const int		 	getGrade() const;
+		int		 	getGrade() const;
 		void				incrementGrade(void);
 		void				decrementGrade(void);
 
@@ -29,13 +29,13 @@ class Bureaucrat {
 			public:
 				const char *what() const throw();
 		};
-		class GradeTooLowException : public std::out_of_range {
+		class GradeTooLowException : public std::out_of_range { //TODO: pq funciona com out_of_range? Sera pq vem do std::exception?
 			public:
 				GradeTooLowException(std::string msg);
 		};
 		
 };
-std::ostream & operator<<(std::ostream& os, const Bureaucrat & bur);
+std::ostream & operator<<(std::ostream & os, const Bureaucrat & bur);
 
 
 #endif
