@@ -3,6 +3,7 @@
 
 
 Constructor: ClassName::ClassName(Args);
+Destructor: ClassName::~ClassName();
 
 ClassName &ClassName::operator=(const ClassName &ref) {}
 

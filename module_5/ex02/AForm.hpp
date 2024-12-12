@@ -12,6 +12,9 @@ class AForm {
 		const int			gradeToSign;
 		const int			gradeToExecute;
 		bool				isSigned;
+		virtual  void		doExecute() const = 0; 
+		//Tem que ser const porque execute (que eh const) chama doExecute
+		//Deixei privado para não ser acessível em Bureacrat e não checar as exceções
 
 	public:
 		AForm();
@@ -27,8 +30,7 @@ class AForm {
 		bool 				getIsSigned() const;
 
 		void 				beSigned(const Bureaucrat &bur);
-		void				execute(Bureaucrat const & executor) const;
-		virtual  void		doExecute() = 0;
+		void				execute(const Bureaucrat &executor) const;
 
 	
 	class GradeTooHighException : public std::exception { 
@@ -36,6 +38,10 @@ class AForm {
 				const char *what() const throw();
 	};
 	class GradeTooLowException : public std::exception { 
+			public:
+				const char *what() const throw();
+	};
+	class NotSignedException : public std::exception { 
 			public:
 				const char *what() const throw();
 	};

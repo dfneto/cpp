@@ -1,28 +1,29 @@
-#include "Form.hpp"
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
-int main()
+int main( void )
 {
-	
-	Bureaucrat bureaucrat("Paco",10);
-    Form form("formName", 7, 9);
-
-    std::cout << bureaucrat;
-    std::cout << form << std::endl;
+    Bureaucrat junior("Junior bureaucrat", 150);
+    Bureaucrat bureaucrat("Vice president",10);
+    
+    ShrubberyCreationForm form("BCN");
+    junior.signForm(form);
     bureaucrat.signForm(form);
-    std::cout << form << std::endl;
+    junior.executeForm(form);
+    bureaucrat.executeForm(form);
 
-    bureaucrat.incrementGrade();
+    // PresidentialPardonForm pardon("Ford Perfect");
+    // bureaucrat.signForm(pardon);
+    // bureaucrat.executeForm(pardon);
+    // Bureaucrat president("El presidente", 1);
+    // president.executeForm(pardon);
 
-    Form form2("OtherForm", 15, 4);
-    std::cout << std::endl << bureaucrat << std::endl;
-    std::cout << form2 << std::endl;
+    // RobotomyRequestForm robot("Bender");
+    // bureaucrat.executeForm(robot);
+    // bureaucrat.signForm(robot);
+    // bureaucrat.executeForm(robot);
 
-    try {
-        bureaucrat.signForm(form2);
-    } catch (Form::GradeTooLowException &e) {
-        std::cerr << e.what() << std::endl;
-    }
-    std::cout << form2 << std::endl;
-	return 0;
+    return 0;
 }

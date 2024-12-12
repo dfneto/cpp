@@ -1,11 +1,11 @@
 NAME = bureaucrat
 
-HEADER = Bureaucrat.hpp AForm.hpp
+HEADER = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp PresidentialPardonForm.hpp RobotomyRequestForm.hpp
 
-CC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
-SRC_FILES = main.cpp Bureaucrat.cpp AForm.cpp
+SRC_FILES = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 all: $(NAME)

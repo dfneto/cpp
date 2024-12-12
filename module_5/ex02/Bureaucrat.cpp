@@ -63,13 +63,13 @@ void    Bureaucrat::signForm(AForm &form) {
 	}
 }
 
-void    Bureaucrat::executeForm(AForm const & form) {
-    /*
-        It must attempt to execute the form. If it’s successful, print something like:
-        <bureaucrat> executed <form>
-        If not, print an explicit error message.
-        Implement and turn in some tests to ensure everything works as expected.
-    */
+void    Bureaucrat::executeForm(const AForm &form) {
+    try {
+        form.execute(*this);
+        std::cout << "Bureaucrat " << this->name << " executed the form " << form.getName() << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "Exception: could not execute the form because: " << e.what() << std::endl;
+    }
 }
 
 const char *Bureaucrat::GradeTooHighException::what() const throw() { //TODO: o que quer dizer o throw?
