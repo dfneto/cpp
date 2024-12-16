@@ -2,6 +2,9 @@
 #define SCALARCONVERTER_HPP
 
 #include <iostream>
+#include <iomanip> // For std::fixed and std::setprecision
+#include <regex>
+
 
 # define E "\033[m"                 //end
 # define R "\033[1m\033[1;31m"      //red
@@ -20,7 +23,9 @@ private:
     ~ScalarConverter();
 
     ScalarConverter &operator=(const ScalarConverter &ref);
-    static bool isNumber(const std::string &);
+    static void convertSingleChar(char);
+    static void convertString(const std::string &);
+    static int handleSpecialCases(const std::string);
 
 public:
     static void convert(std::string);
