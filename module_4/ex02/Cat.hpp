@@ -16,7 +16,6 @@ class Cat : public Animal
 
         Cat&	operator=(const Cat& ref);
         virtual void    makeSound() const; //Sem o virtual da igual
-
     };
 
 #endif

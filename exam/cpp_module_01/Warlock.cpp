@@ -35,3 +35,23 @@ const std::string& Warlock::getTitle() const {
 void Warlock::setTitle(const std::string& newTitle) {
     this->title = newTitle;
 }
+
+
+void    Warlock::learnSpell(ASpell *spell) {
+    if (spell)
+		if (spellBook.find(spell->getName()) == spellBook.end()) //retorna spellBook.end() quando nao acha
+			spellBook[spell->getName()] = spell->clone();
+}
+
+void    Warlock::forgetSpell(std::string spellName) {
+    if (spellBook.find(spellName) != spellBook.end()) {
+        delete spellBook[spellName]; //frees the memory 
+        spellBook.erase(spellBook.find(spellName)); //removes the entry (key-value pair) from the map
+    }
+}
+
+void    Warlock::launchSpell(std::string spellName, ATarget &target) {
+    if (spellBook.find(spellName) != spellBook.end())
+        spellBook[spellName]->launch(target);
+}
+
