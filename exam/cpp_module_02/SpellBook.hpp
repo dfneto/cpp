@@ -8,7 +8,7 @@ class SpellBook {
         SpellBook(const SpellBook &ref);
         SpellBook & operator=(const SpellBook &rhs);
         std::map<std::string, ASpell *> spellBook;
-
+        
     public:
         SpellBook();
         ~SpellBook();

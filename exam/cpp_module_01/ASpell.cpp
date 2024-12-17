@@ -1,4 +1,5 @@
 #include "ASpell.hpp"
+#include "ATarget.hpp"
 
 ASpell::ASpell() {}
 

@@ -1,9 +1,7 @@
 #ifndef WARLOCK_HPP
 #define WARLOCK_HPP
 
-// #include <iostream>
-// #include <string>
-
+#include <iostream>
 #include "ASpell.hpp"
 #include "SpellBook.hpp"
 
@@ -14,7 +12,7 @@ class Warlock {
         Warlock & operator=(const Warlock &rhs);
         std::string name;
         std::string title;
-        SpellBook spellBook; //SpellBook class must have a default constructor or I use a pointer
+        SpellBook spellBook; //SpellBook class must have a default constructor public
 
     public:
         Warlock(std::string name, std::string title);
