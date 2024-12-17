@@ -13,7 +13,9 @@ const std::string& Warlock::getName() const {}
 
 
 
-pure method: virtual e =0
+pure method: virtual =0
 Also add a clone pure method that returns a pointer to ASpell:
 virtual ASpell* clone() const = 0;
 
+#include <string>
+#include <iostream>
