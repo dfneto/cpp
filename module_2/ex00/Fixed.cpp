@@ -19,8 +19,9 @@ Fixed &Fixed::operator=(const Fixed &rhs) {
     std::cout << "Copy assignment operator called" << std::endl;
     //this is a pointer to the object on the left-hand side of the = operator
     //You compare this with the address of the object on the right-hand side (&other) to detect self-assignment.
-    if (this != &rhs) { //para evitar que eu atribua a = a
-        fixed = rhs.fixed;
+    //para evitar que eu atribua a = a
+    if (this != &rhs) {         //repare que estou comparando 2 ponteiros e não 2 referências 
+        fixed = rhs.fixed;      //porque uma delas eh const e não posso comparar uma referência const com outr não const
     }
     return *this; // Return *this to allow chaining. Sem esse return a = b = c não é possível, porque b seria igual a c,
                   // mas não retornaria nada para atribuir a a. Agora, quando retornamos uma referência Fixed (&Fixed) e por
