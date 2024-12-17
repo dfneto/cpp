@@ -7,6 +7,7 @@ SpellBook::SpellBook(const SpellBook &ref) {
 }
 
 SpellBook &SpellBook::operator=(const SpellBook &ref) {
+    (void)ref;
     return *this;
 }
 
