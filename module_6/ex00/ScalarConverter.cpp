@@ -10,7 +10,7 @@ ScalarConverter::~ScalarConverter() {}
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &ref) {
 	if (this != &ref)
-		*this = ref; //TODO: acho que isso não deveria funcionar
+		*this = ref; //This is calling the same operator= function you are currently implementing -> infinite recursion
 	return (*this);
 }
 
@@ -27,10 +27,7 @@ void ScalarConverter::convertSingleChar(char cc) {
     std::cout << "double: " << d << std::endl;
 }
 
-//TODO; usar um vetor para verificar se a str está dentro do vetor e 
-//se tiver imprimir seu conteudo
 int ScalarConverter::handleSpecialCases(const std::string str) {
-    // std::string specialCases[6] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
     if (str == "-inff" || str == "-inf") {
         std::cout << "char: impossible" << std::endl;
         std::cout << "int: impossible" << std::endl;
@@ -66,8 +63,9 @@ void ScalarConverter::convert(std::string str) {
     return;
 }
 
-//TODO: preciso de um caso para int e outro para float ou poderia ser o mesmo?
-//TODO: Entender as regex
+//O caso de int e float são muito parecidos
+//intPattern matches: 123, -123, 0. Don't: 123.45, abc, ""
+//floatPattern matches: 123.45, -123.45, .45, 123.0f, -0.01f. Don't: 123, abc, 1.23.45, f
 void ScalarConverter::convertString(const std::string &str) {
     // Regex patterns for validation
     const std::regex intPattern("^-?\\d+$");                     // Matches integers
