@@ -7,7 +7,8 @@ Warlock::Warlock(std::string name, std::string title) : name(name), title(title)
 Warlock::Warlock() {}
 
 Warlock::Warlock(const Warlock &ref) {
-    *this = ref;
+    if (this != &ref)
+        *this = ref;
 }
 
 Warlock &Warlock::operator=(const Warlock &ref) {

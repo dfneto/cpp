@@ -49,4 +49,3 @@ void    Warlock::launchSpell(std::string spellName, ATarget &target) {
     if (spell)
         spell->launch(target);
 }
-
