@@ -2,15 +2,15 @@
 
 
 
-Constructor: ClassName::ClassName(Args);
-Destructor: ClassName::~ClassName();
+Constructor: 
+    ClassName::ClassName(Args);
+Destructor: 
+    ClassName::~ClassName();
 
-ClassName &ClassName::operator=(const ClassName &ref) {}
-
-<return_type> ClassName::<function_name>(<parameters>) [qualifiers] [noexcept];
-void Warlock::introduce() const {}
-const std::string& Warlock::getName() const {}
-
+<return_type>       ClassName::     <function_name>     (<parameters>)          [qualifiers] [noexcept];
+ClassName &         ClassName::     operator=           (const ClassName &ref)              {}
+void                Warlock::       introduce           ()                      const       {}
+const std::string&  Warlock::       getName             ()                      const       {}
 
 
 pure method: virtual =0
