@@ -1,39 +1,52 @@
-#include "Iter.hpp"
+#include "Array.hpp"
 #include <iostream>
 
-template <typename T> void printElement(T &e) {
-    std::cout << e << " ";
-}
-
-template <typename T> void doubleElement(T &e) {
-    e *= 2;
-}
-
 int main() {
-    int intArray[] = {1, 2, 3, 4, 5};
-    double doubleArray[] = {1.1, 2.2, 3.3, 4.4, 5.5};
-    std::string stringArray[] = {"Pepe", "Paco", "Jaume", "Pepo", "Juan"};
+    Array<int> empty;
+    std::cout << "Array size: " << empty.getSize() << std::endl;
 
-    std::cout << "# Printing intArray:" << std::endl;
-    iter(intArray, 5, printElement<int>);
+    Array<double> doubleArray(5);
+    std::cout << "Array size: " << doubleArray.getSize() << std::endl;
+
+    std::cout << "double array: ";
+    doubleArray[0] = 42;
+    for (unsigned int i = 0; i < doubleArray.getSize(); ++i) {
+        std::cout << doubleArray[i] << " ";
+    }
     std::cout << std::endl;
 
-    std::cout << "# Printing doubleArray:" << std::endl;
-    iter(doubleArray, 5, printElement<double>);
+    const Array<int> constArray (5);
+    std::cout << "const array: ";
+    for (unsigned int i = 0; i < constArray.getSize(); ++i) {
+        std::cout << constArray[i] << " ";
+    }
     std::cout << std::endl;
+    //constArray[0] = 1; //compilation error, trying to modify const array
 
-    std::cout << "# Printing stringArray:" << std::endl;
-    iter(stringArray, 5, printElement<std::string>);
-    std::cout << std::endl;
+    Array<char> charArray(3);
+    charArray[0] = 'O';
+    charArray[1] = 'A';
+    charArray[2] = '2';
 
-    std::cout << "# Double intArray:" << std::endl;
-    iter(intArray, 5, doubleElement<int>);
-    iter(intArray, 5, printElement<int>);
-    std::cout << std::endl;
+    Array<char> copiedArray = charArray;
+    copiedArray[0] = 'D';
 
-    std::cout << "# Double doubleArray:" << std::endl;
-    iter(doubleArray, 5, doubleElement<double>);
-    iter(doubleArray, 5, printElement<double>);
+    std::cout << "char array: ";
+    for (unsigned int i = 0; i < charArray.getSize(); ++i) {
+        std::cout << charArray[i]; //0 A 2
+    }
     std::cout << std::endl;
+    std::cout << "copied array: " << copiedArray[0] << copiedArray[1] << copiedArray[2] << std::endl;
+
+    try {
+        std::cout << charArray[0] << std::endl;
+        std::cout << charArray[3] << std::endl;
+    } catch (std::exception& e) { 
+        //By catching the exception by reference (std::exception& e), 
+        //you ensure that the specific exception type and its associated 
+        //message are preserved and not sliced.
+        std::cerr << "Exceção lançada: " << e.what() << std::endl;
+    }
+
 	return (0);
 }
