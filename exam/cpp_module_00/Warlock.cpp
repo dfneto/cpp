@@ -11,7 +11,7 @@ Warlock::Warlock(const Warlock &ref) {
         *this = ref;
 }
 
-Warlock &Warlock::operator=(const Warlock &ref) {
+Warlock& Warlock::operator=(const Warlock &ref) {
     this->name = ref.name;
     this->title = ref.title;
     return *this;

@@ -13,9 +13,11 @@ void                Warlock::       introduce           ()                      
 const std::string&  Warlock::       getName             ()                      const       {}
 
 
-pure method: virtual =0
+Abstract class has a pure method: virtual =0
 Also add a clone pure method that returns a pointer to ASpell:
 virtual ASpell* clone() const = 0;
 
 #include <string>
 #include <iostream>
+
+getHitBySpell eh const!
