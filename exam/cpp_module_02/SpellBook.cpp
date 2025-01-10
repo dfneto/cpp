@@ -16,7 +16,7 @@ SpellBook::~SpellBook() {}
 void    SpellBook::learnSpell(ASpell *spell) {
     if (spell)
 		if (spellBook.find(spell->getName()) == spellBook.end()) //retorna spellBook.end() quando nao acha
-			spellBook[spell->getName()] = spell->clone();
+			spellBook[spell->getName()] = spell;
 }
 
 void    SpellBook::forgetSpell(const std::string &spellName) {
