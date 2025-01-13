@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <exception>
+#include <climits> // For INT_MAX
+#include <cmath> // For std::fabs
+#include <iostream>
 
 class Span {
 	private:
@@ -20,10 +23,6 @@ class Span {
 		int			shortestSpan();
 		int			longestSpan();
 
-	class FullSpanException : public std::exception { 
-    	public:
-			const char *what() const throw();
-	};
 	class NotEnoughSpanException : public std::exception { 
     	public:
 			const char *what() const throw();
