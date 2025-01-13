@@ -12,7 +12,9 @@ class NotFoundException : public std::exception {
 
 template <typename T> 
 int easyfind(T &a, int b) { 
-    typename T::iterator it; //estou criando um iterador do tipo T parecido com std::vector<int>::iterator it
+    //estou criando um iterador do tipo T parecido com
+    //std::vector<int>::iterator it
+    typename T::iterator it; 
     for (it = a.begin(); it != a.end(); it++) {
         if (*it == b)
             return *it;

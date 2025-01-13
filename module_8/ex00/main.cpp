@@ -12,6 +12,12 @@ int main()
 	vec.push_back(42);
 	vec.push_back(30);
 
+	// Se não coloco isso num try catch 
+	std::cout << easyfind(vec, 16) << std::endl;
+	// e ocorre uma exceção o programa é abortado:
+	// libc++abi: terminating with uncaught exception of 
+	// type NotFoundException: Sorry sir, element not found :/
+
 	try {
 		std::cout << easyfind(vec, 130) << std::endl;
 	} catch (NotFoundException e) {
