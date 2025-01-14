@@ -2,12 +2,14 @@
 
 Span::Span() {}
 
-Span::Span(const Span &src) { //todo
-    (void)src;
+Span::Span(const Span &src) {
+    if (this != &src)
+        *this = src;
 }
 
-Span &Span::operator=(const Span &rhs) { //todo
-    (void)rhs;
+Span &Span::operator=(const Span &rhs) {
+    this->vec = rhs.vec;
+    this->maxSize = rhs.maxSize;
     return *this;
 }
 
@@ -27,7 +29,7 @@ int Span::shortestSpan() {
     
     std::sort(vec.begin(), vec.end());
     
-    int shortestSpan = INT_MAX;
+    int shortestSpan = vec[1] - vec[0];
     for (size_t i = 1; i < vec.size(); ++i) {
         int span = vec[i] - vec[i - 1];
         if (span < shortestSpan)

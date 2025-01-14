@@ -2,10 +2,8 @@
 #define SPAN_HPP
 
 #include <vector>
-#include <exception>
-#include <climits> // For INT_MAX
-#include <cmath> // For std::fabs
-#include <iostream>
+#include <stdexcept>
+#include <algorithm>
 
 class Span {
 	private:
