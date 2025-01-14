@@ -2,47 +2,45 @@
 
 Span::Span() {}
 
-Span::Span(const Span &src) {
+Span::Span(const Span &src) { //todo
     (void)src;
+}
+
+Span &Span::operator=(const Span &rhs) { //todo
+    (void)rhs;
+    return *this;
 }
 
 Span::Span(unsigned int n) : maxSize(n) {}
 
 Span::~Span() {}
 
-Span &Span::operator=(const Span &rhs) {
-    (void)rhs;
-    return *this;
-}
-
 void    Span::addNumber(int n) {
-    if (span.size() >= maxSize)
+    if (vec.size() >= maxSize)
         throw std::invalid_argument("Sorry sir, the array is full.");
-    span.push_back(n);
+    vec.push_back(n);
 }
 
 int Span::shortestSpan() {
-    if (span.size() <= 1)
+    if (vec.size() <= 1)
         throw::Span::NotEnoughSpanException();
     
-    std::cout << span.begin() << "_" << span.end() << std::endl;
-    std::sort(span.begin(), span.end());
-    std::cout << span.begin() << "_" << span.end() << std::endl;
-
+    std::sort(vec.begin(), vec.end());
+    
     int shortestSpan = INT_MAX;
-    for (size_t i = 0; i < span.size(); i++) {
-        for (size_t j = 0; j < span.size(); j++) {
-            if (i != j && std::fabs(span[i] - span[j]) < shortestSpan)
-                shortestSpan = std::fabs(span[i] - span[j]);
-        }
+    for (size_t i = 1; i < vec.size(); ++i) {
+        int span = vec[i] - vec[i - 1];
+        if (span < shortestSpan)
+            shortestSpan = span;
     }
     return shortestSpan;
 }
 
 int Span::longestSpan() {
-    if (span.size() <= 1)
+    if (vec.size() <= 1)
         throw::Span::NotEnoughSpanException();
-    return 1;
+    std::sort(vec.begin(), vec.end());
+    return vec[vec.size() - 1] - vec[0];
 }
 
 const char *Span::NotEnoughSpanException::what() const throw() { 
