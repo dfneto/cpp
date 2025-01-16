@@ -18,10 +18,11 @@ int main()
     MutantStack<int>::iterator ite = mstack.end();
     ++it;
     --it;
+    std::cout << "Let's print" << std::endl;
     while (it != ite)
     {
-    std::cout << *it << std::endl;
-    ++it;
+        std::cout << *it << std::endl;
+        ++it;
     }
     std::stack<int> s(mstack);
     return 0;

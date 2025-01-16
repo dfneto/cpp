@@ -1,11 +1,12 @@
-NAME = span
+NAME = mutant
 
-HEADER = Span.hpp
+HEADER = MutantStack.hpp
+TEMPLATES = MutantStack.tpp
 
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g
 
-SRC_FILES = main.cpp Span.cpp
+SRC_FILES = main.cpp 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 all: $(NAME)
@@ -13,7 +14,7 @@ all: $(NAME)
 $(NAME): $(OBJ_FILES)
 	$(CC) $(CFLAGS) $^ -o $@
 
-%.o : %.cpp $(HEADER) Makefile
+%.o : %.cpp $(HEADER) $(TEMPLATES) Makefile
 	$(CC) $(CFLAGS) -c $< -o $@ -I.
 
 clean:
