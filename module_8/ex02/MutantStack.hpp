@@ -6,33 +6,23 @@
 #include <algorithm>
 
 template <typename T> 
-class MutantStack {
-	private:
-		std::vector<int>	vec;
-		unsigned int		maxSize;
-
+class MutantStack : public std::stack<T> {
 	public:
 		MutantStack();
 		MutantStack(const MutantStack &src);
-		MutantStack(unsigned int n);
+		MutantStack&	operator=(const MutantStack &rhs);
 		~MutantStack();
 		
-		MutantStack&		operator=(const MutantStack &rhs);
-		template <typename it>
-		void		addManyNumbers(it begin, it end);
+		//typename é para dizer que é um tipo e não que estou acessando um static member
+		//typedef é para criar um alias para um tipo
+
+		// Iterators are not directly part of std::stack itself because std::stack does not expose 
+		// the full interface of the underlying container. To get iterators, you need to access 
+		// the iterators of the underlying container, which is std::stack<T>::container_type
+		typedef typename std::stack<T>::container_type::iterator it;
+		// 3. Why is iterator an alias and not a variable of the type std::stack<T>::container_type::iterator?
+		// https://chatgpt.com/share/6788ba37-2868-8010-8746-f93ff70beb1c
+		
 };
-
-template <typename it>
-void	MutantStack::addManyNumbers(it begin, it end) {
-	//distance calculates the number of elements between two iterators.
-	if (std::distance(begin, end) >  maxSize)
-        throw std::invalid_argument("Sorry sir, the array is full.");
-	// The vector insert() function can also insert elements from a range into the vector at given index. This range can be any STL container or an array.
-	// pos– Iterator to the position where range is to be inserted.
-	// first– Iterator to the first element in the range from which the elements are to be inserted.
-	// last– Iterator to the element one place after the last element in the range.
-
-	vec.insert(vec.end(), begin, end);
-}
 
 #endif
