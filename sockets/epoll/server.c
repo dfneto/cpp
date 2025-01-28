@@ -7,6 +7,7 @@
 #include <sys/epoll.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <iostream>
 
 #define MAX_EVENTS 10
 #define PORT 8080
@@ -95,6 +96,8 @@ int main() {
         // Handle each event
         for (int i = 0; i < nfds; i++) {
             if (events[i].data.fd == server_fd) {
+                std::cout << "--------------------i: " << i << std::endl;
+                std::cout << ">>>Server socket id # " << events[i].data.fd << ", evento: " << events[i].events << std::endl;
                 // New client connection
                 socklen_t addr_len = sizeof(client_addr);
                 int client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &addr_len);
@@ -122,6 +125,8 @@ int main() {
                     continue;
                 }
             } else {
+                std::cout << "--------------------i: " << i << std::endl;
+                std::cout << ">>>Server socket id # " << events[i].data.fd << ", evento: " << events[i].events << std::endl;
                 // Data available on a client socket
                 int client_fd = events[i].data.fd;
                 char buffer[BUFFER_SIZE];
