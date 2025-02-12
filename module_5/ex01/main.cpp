@@ -3,7 +3,6 @@
 
 int main()
 {
-	
 	Bureaucrat bureaucrat("Paco",10);
     Form form("formName", 7, 9);
 

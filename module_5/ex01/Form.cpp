@@ -61,7 +61,6 @@ void    Form::beSigned(const Bureaucrat &bur) {
     if (bur.getGrade() > this->gradeToSign)
         throw Form::GradeTooLowException();
     this->isSigned = true;
-
 }
 
 //Nao poderia usar this->name porque operator nao faz parte da classe 

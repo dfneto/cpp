@@ -13,10 +13,13 @@ class AForm {
 		const int			gradeToExecute;
 		bool				isSigned;
 		virtual  void		doExecute() const = 0; 
-		//Tem que ser const porque execute (que eh const) chama doExecute
-		//Deixei privado para não ser acessível em Bureacrat e não checar as exceções
-
-	public:
+		//Tem que ser const porque o método execute que chama doExecute eh const
+		//Deixei privado para não ser acessível em Bureacrat e saltar as checagens que 
+		//geram exceções de execute. Ou seja, doExecute sendo privado obriga a bureucrat
+		//chamar execute, onde são feito checagens e que chama doExecute. Se doExecute
+		//fosse público poderia ser chamado direto da classe bureaucrat e evitar checagens
+		
+		public:
 		AForm();
 		AForm(const AForm &src);
 		AForm(std::string, int, int);

@@ -32,5 +32,12 @@ int main()
 		std::cerr << e.what() << std::endl;
 	}	
 
+	try {
+		Bureaucrat bur("Guido", 0); //must trigger GradeTooHighException
+	} catch (std::exception &e) { 
+		std::cerr << e.what() << std::endl;
+	}
+
+	// Bureaucrat bur("Guido", 0); //libc++abi: terminating with uncaught exception of type Bureaucrat::GradeTooHighException: Grade too high
 	return 0;
 }
