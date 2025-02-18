@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp" //the compiler needs the full definition of Form here
 
 Bureaucrat::Bureaucrat() : name("Bru") , grade(150) {
     // this->name = "Bru"; -> Da erro porque name eh const
@@ -48,26 +49,43 @@ void    Bureaucrat::incrementGrade() {
 
 void    Bureaucrat::decrementGrade() {
     if (this->grade + 1 > LOWEST)
-        throw Bureaucrat::GradeTooLowException("Sh*t happens");
+        throw Bureaucrat::GradeTooLowException("Deu ruim, amigão");
     this->grade++;
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const throw() { 
+void    Bureaucrat::signForm(AForm &form) {
+    try {
+        form.beSigned(*this);
+        std::cout << "Bureaucrat " << this->name << " signed the form " << form.getName() << std::endl;
+    }
+    catch (std::exception &e) {
+		std::cerr << this->name << " could't sign form " << form.getName() << " because {" << e.what() << "}" << std::endl;
+	}
+}
+
+void    Bureaucrat::executeForm(const AForm &form) {
+    try {
+        // form.doExecute(); //inacessível porque eh privado
+        form.execute(*this);
+        std::cout << "Bureaucrat " << this->name << " executed the form " << form.getName() << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "Exception: could not execute the form because: " << e.what() << std::endl;
+    }
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw() { //TODO: o que quer dizer o throw?
     return ("Grade too high");
 }
 
-Bureaucrat::GradeTooLowException::GradeTooLowException(std::string msg) : 
-    std::out_of_range(msg + ". Grade too low") {
+Bureaucrat::GradeTooLowException::GradeTooLowException(std::string msg) : std::out_of_range(msg + ". Grade too low") {}
 // Se coloco dentro do metodo da erro, pois:
 // In a derived class, the base class must be fully 
 // constructed before any code in the body of the derived 
 // class constructor executes. For this reason you need
 // to use the member initializer list to explicitly invoke
 // the base class constructor.
-}
 
 std::ostream & operator<<(std::ostream & os, const Bureaucrat & bur) {
-    os << bur.getName() << ", bureaucrat grade " << 
-        bur.getGrade() << "." << std::endl;
+    os << bur.getName() << ", bureaucrat grade " << bur.getGrade() << "." << std::endl;
     return (os);
 }

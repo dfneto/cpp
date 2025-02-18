@@ -28,3 +28,12 @@ void    Harl::complain(std::string level) {
 			(this->*functions[i])();
 	}
 }
+//void (Harl::*)(void) is a pointer to a member function of Harl takes no arguments and returns void
+//functions[4] – An Array of Member Function Pointers.
+//Each element in functions[] must match the type void (Harl::*)(void), which is a pointer to a member function of Harl
+/*
+(this->*functions[i])();
+functions[i] → Retrieves the function pointer stored at index i.
+this->*functions[i] → Dereferences the member function pointer for the current instance.
+() → Calls the function.
+*/
