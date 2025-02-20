@@ -24,11 +24,11 @@ int main( void ) {
         bureaucrat.signForm(*scf);
         bureaucrat.signForm(*ppf);
         std::cout << std::endl;
+        bureaucrat.executeForm(*rrf);
+        std::cout << std::endl;
         bureaucrat.executeForm(*scf);
         std::cout << std::endl;
         bureaucrat.executeForm(*ppf);
-        std::cout << std::endl;
-        bureaucrat.executeForm(*rrf);
         delete rrf;
         delete scf;
         delete ppf;

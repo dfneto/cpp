@@ -33,11 +33,12 @@ AForm *Intern::makePardon(std::string target) {
     return new PresidentialPardonForm(target);
 }
 
-//ver modulo 1, exercicio 5
+//ver modulo 1, exercicio 5 que fala de pointer member function
 AForm *Intern::makeForm(std::string formName, std::string target) {
 
-    std::string	forms[3] = {"robotomy request", "shrubbery creation", "presidential pardon"};
-	AForm* (Intern::*functions[3])(std::string) = {&Intern::makeShrubbery, &Intern::makeRobotomy, &Intern::makePardon};
+    std::string forms[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+    AForm*	(Intern::*functions[3])(std::string) = {&Intern::makeShrubbery, &Intern::makeRobotomy, &Intern::makePardon};
+    
 	for (int i = 0; i < 3; i++) {
 		if (formName == forms[i])
 			return (this->*functions[i])(target);
