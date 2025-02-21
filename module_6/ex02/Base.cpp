@@ -3,9 +3,9 @@
 Base::~Base() {}
 
 Base    *generate(void) {
-    std::srand(std::time(NULL));
+    srand(time(NULL));
     std::cout << "Generating: ";
-    switch (std::rand() % 3) {
+    switch (rand() % 3) {
         case 0:
             std::cout << "A class" << std::endl;
             return (new A());
@@ -37,17 +37,20 @@ void    identify(Base &ref) {
         A& a = dynamic_cast<A&>(ref);
         (void)a;
         std::cout << "Reference is of type A&" << std::endl;
-    } catch (std::bad_cast&) {
+    } catch (const std::exception& e){
+        (void)e;
         try {
             B& b = dynamic_cast<B&>(ref);
             (void)b;
             std::cout << "Reference is of type B&" << std::endl;
-        } catch (std::bad_cast&) {
+        } catch (const std::exception& e){
+            (void)e;
             try {
                 C& c = dynamic_cast<C&>(ref);
                 (void)c;
                 std::cout << "Reference is of type C&" << std::endl;
-            } catch (std::bad_cast&) {
+            } catch (const std::exception& e){
+                (void)e;
                 std::cout << "Reference is of unknown type" << std::endl;
             }
         }

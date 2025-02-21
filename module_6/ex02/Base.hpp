@@ -2,6 +2,9 @@
 #define BASE_HPP
 
 #include <iostream>
+#include <cstdlib>  // For srand() and rand()
+#include <ctime>    // For time()
+
 
 class Base {
     public:

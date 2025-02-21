@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <stdint.h>  // Required for uintptr_t in C++98
 
 struct Data {
     int id;

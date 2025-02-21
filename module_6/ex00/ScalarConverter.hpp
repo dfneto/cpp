@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <iomanip> // For std::fixed and std::setprecision
-#include <regex>
-
+#include <cstdlib>  // Required for strtol()
+#include <climits>
 
 # define E "\033[m"                 //end
 # define R "\033[1m\033[1;31m"      //red
@@ -29,6 +29,8 @@ private:
 
 public:
     static void convert(std::string);
+    static int         isInteger(std::string);
+    static int         isFloatOrDouble(std::string);
 
 };
 

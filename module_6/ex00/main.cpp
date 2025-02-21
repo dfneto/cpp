@@ -7,8 +7,8 @@ int main(int ac, char **av)
 		std::cerr << R << "Error: " << E
 			<< (ac > 1 ? "you have more than one argument" : "invalid argument")
 			<< std::endl;
-		return (EXIT_FAILURE);
+		return (1);
 	}
 	ScalarConverter::convert(av[1]);
-	return (EXIT_SUCCESS);
+	return (0);
 }

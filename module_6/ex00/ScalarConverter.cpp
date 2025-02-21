@@ -63,18 +63,64 @@ void ScalarConverter::convert(std::string str) {
     return;
 }
 
+int ScalarConverter::isInteger(std::string str) {
+    size_t i = 0;
+
+    // Allow a leading '+' or '-'
+    if (str[i] == '+' || str[i] == '-') {
+        if (str.length() == 1)  // A single '+' or '-' is not an integer
+            return 0;
+        i++;
+    }
+
+    // Check if the rest of the string consists only of digits
+    for (; i < str.length(); i++) {
+        if (!std::isdigit(str[i]))  // If any character is not a digit, return false
+            return 0;
+    }
+
+    return 1;  // The string is a valid integer
+}
+
+int ScalarConverter::isFloatOrDouble(std::string str) {
+    size_t i = 0;
+    int hasDecimal = 0;
+    int hasDigit = 0;  
+    int hasF = 0;
+
+    if (str[i] == '+' || str[i] == '-') {
+        if (str.length() == 1)
+            return 0;
+        i++;
+    }
+
+    for (; i < str.length(); i++) {
+        if (std::isdigit(str[i])) {
+            hasDigit = 1;  
+        } else if (str[i] == '.') {
+            if (hasDecimal)
+                return 0;
+            hasDecimal = 1;
+        } else if (str[i] == 'f' || str[i] == 'F') {
+            if (i != str.length() - 1 || hasF)
+                return 0;
+            hasF = 1;
+        } else {
+            return 0;
+        }
+    }
+
+    // ✅ Ensure at least one digit exists, avoiding cases like "." or ".f"
+    return hasDigit && (hasDecimal || hasF);
+}
+
 //O caso de int e float são muito parecidos
 //intPattern matches: 123, -123, 0. Don't: 123.45, abc, ""
 //floatPattern matches: 123.45, -123.45, .45, 123.0f, -0.01f. Don't: 123, abc, 1.23.45, f
 void ScalarConverter::convertString(const std::string &str) {
-    // Regex patterns for validation
-    const std::regex intPattern("^-?\\d+$");                     // Matches integers
-    const std::regex floatPattern("^-?\\d*\\.\\d+(f)?$");        // Matches floats (with optional 'f' suffix)
-
-    // Check if the input is an integer
-    if (std::regex_match(str, intPattern)) {
+    if (isInteger(str)) {
         try {
-            long int_value = std::stol(str); // Convert string to long
+            long int_value = std::strtol(str.c_str(), NULL, 10); // Convert string to long
             if (int_value > INT_MAX || int_value < INT_MIN) {
                 throw std::out_of_range("Integer out of range");
             }
@@ -98,9 +144,9 @@ void ScalarConverter::convertString(const std::string &str) {
     }
 
     // Check if the input is a float or double
-    if (std::regex_match(str, floatPattern)) {
+    if (isFloatOrDouble(str)) {
         try {
-            double d = std::stod(str); // Convert string to double
+            double d = std::strtod(str.c_str(), NULL); // Convert string to double
             float f = static_cast<float>(d);
             int i = static_cast<int>(d);
             char c = static_cast<char>(i);
