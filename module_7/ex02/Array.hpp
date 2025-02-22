@@ -43,7 +43,7 @@ template <typename T> class Array {
         Array& operator=(const Array &ref) {
             if (this != &ref) {
                 if (elements) {
-                    delete[] elements; //Free the memory allocated for the old array
+                    delete[] elements; //Free the memory allocated of the old array
                 }
                 size = ref.size;
                 elements = new T[size];
