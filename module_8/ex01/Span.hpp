@@ -39,7 +39,24 @@ void	Span::addManyNumbers(it begin, it end) {
 	// first– Iterator to the first element in the range from which the elements are to be inserted.
 	// last– Iterator to the element one place after the last element in the range.
 
+	// Inserts all numbers from [begin, end] into vec.
+	// vec.end() specifies that numbers will be added at the end of the vector.
 	vec.insert(vec.end(), begin, end);
 }
 
 #endif
+
+// Ex de uso do addManyNumbers
+// int main() {
+//     Span sp(5);  // Create a Span with max size 5
+
+//     std::vector<int> numbers = {3, 8, 12};
+
+//     try {
+//         sp.addManyNumbers(numbers.begin(), numbers.end());
+//     } catch (const std::exception &e) {
+//         std::cerr << "Error: " << e.what() << std::endl;
+//     }
+
+//     return 0;
+// }

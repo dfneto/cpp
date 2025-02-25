@@ -59,8 +59,10 @@ int main()
 		Span span(10000);
 		std::srand(std::time(NULL));
 		std::vector<int> randomNumbers;
-		for (int i = 0; i < 10000; ++i)
+        //Eu crio u vetor randomNumbers com 10.000 elementos
+		for (int i = 0; i <= 10000; ++i)
 			randomNumbers.push_back(rand() % 10000);
+        //agora vou adicionar todos os 10k elementos a spain apenas passando um iterador do inicio e do fim de randomNumbers
 		span.addManyNumbers(randomNumbers.begin(), randomNumbers.end());
 		int shortest = span.shortestSpan();
         int longest = span.longestSpan();
