@@ -21,7 +21,12 @@ class BitcoinExchange {
 		bool				isValidDate(const std::string &);
 		bool				isNumber(const std::string &);
 		float				getExchangeRate(const std::string &date);
-		const std::string 	decreaseDate(std::string date); //todo: make it static
+		std::string			decrementDate(const std::string &date);
+		int					getDaysInMonth(int year, int month);
+		bool				isLeapYear(int year);
+		bool 				dateIsBeforeFirstDate(const std::string &date);
+
+
 
 	public:
 		BitcoinExchange();

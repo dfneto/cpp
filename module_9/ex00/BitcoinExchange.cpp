@@ -47,6 +47,52 @@ bool BitcoinExchange::isValidDate(const std::string &date)
     return true;
 }
 
+bool BitcoinExchange::isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+}
+
+int BitcoinExchange::getDaysInMonth(int year, int month) {
+    static const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month == 2 && isLeapYear(year)) return 29;
+    return daysInMonth[month - 1];
+}
+
+// std::istringstream is a class from <sstream> in C++ that allows you 
+// to treat a string like a stream, similar to reading from std::cin.
+// It helps extract values from a formatted string.
+// When using operator>>, it automatically parses numbers and stops when 
+// it encounters a non-numeric character. It can extract characters and 
+// strings, but operator>> only reads words separated by spaces
+std::string BitcoinExchange::decrementDate(const std::string &dateStr)
+{
+    int year, month, day;
+    //Parse YYYY-MM-DD
+    char dash1, dash2;
+    std::istringstream iss(dateStr);
+    iss >> year >> dash1 >> month >> dash2 >> day;
+
+    day--;
+
+    //Handle underflow (e.g., going from 2024-03-01 to 2024-02-29)
+    if (day == 0) {
+        month--;
+        if (month == 0) {
+            year--;
+            month = 12;
+        }
+        day = getDaysInMonth(year, month);
+    }
+
+    //Format bach to YYYY-MM-DD
+    // ostringstream works like std::cout, but instead of printing 
+    // to the console, it writes to a string.
+    std::ostringstream result;  
+    result << year << "-" 
+           << std::setw(2) << std::setfill('0') << month << "-" 
+           << std::setw(2) << std::setfill('0') << day;
+    return result.str();
+}
+
 void BitcoinExchange::loadDictionary()
 {
     // Open source file for reading
@@ -112,19 +158,27 @@ int BitcoinExchange::calculate(char *inputFile)
             value = std::atof(valueStr.c_str());  // Convert to float
 
             if (value < 0 || value > 1000) {
-                std::cerr << "Error: Value must be positive and less than 1000." << std::endl;
-                file.close();
-                return 1;
+                std::cerr << date << " => " 
+                    << std::fixed << std::setprecision(value == (int)value ? 0 : 1) << value 
+                    << " => Error: Value must be positive and less than 1000." << std::endl;
+                continue;
             }
 
             if (!isValidDate(date)) {
-                std::cerr << "Error: Invalid date format '" << date << "'. Expected YYYY-MM-DD." << std::endl;
-                file.close();
-                return 1;
+                std::cerr << date << " => " 
+                    << std::fixed << std::setprecision(value == (int)value ? 0 : 1) << value 
+                    << " => Error: Invalid date format '" << date << "'. Expected YYYY-MM-DD." << std::endl;
+                continue;
+            }
+
+            if (dateIsBeforeFirstDate(date)) {
+                std::cerr << date << " => " 
+                    << std::fixed << std::setprecision(value == (int)value ? 0 : 1) << value 
+                    << " => Error: Date is before the first date in the dictionary." << std::endl;
+                continue;
             }
             
             exchangeRate = getExchangeRate(date);
-            std::cout << "value for the date: " << exchangeRate << std::endl;
 
             std::cout << date << " => " 
               << std::fixed << std::setprecision(value == (int)value ? 0 : 1) << value 
@@ -132,9 +186,7 @@ int BitcoinExchange::calculate(char *inputFile)
               << std::fixed << std::setprecision(2) << value * exchangeRate
               << std::endl;
         } else {
-            std::cerr << "Error: Invalid line format." << std::endl;
-            file.close();
-            return 1;
+            std::cerr << date << " => Error: Invalid line format." << std::endl;
         }
     }
 
@@ -142,17 +194,15 @@ int BitcoinExchange::calculate(char *inputFile)
     return 0;
 }
 
+bool BitcoinExchange::dateIsBeforeFirstDate(const std::string &date) {
+    return date < this->map.begin()->first;
+}
+
 float BitcoinExchange::getExchangeRate(const std::string &date) {
     if (this->map.find(date) != this->map.end()) {
         return this->map[date];
     } else {
-        return getExchangeRate(decreaseDate(date));    
+        return getExchangeRate(decrementDate(date));    
     }
 }
 
-//TODO: make this code const & and decrease the date by one day
-const std::string BitcoinExchange::decreaseDate(std::string date)
-{
-    date = "2042-12-12";
-    return date;
-}
