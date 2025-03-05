@@ -14,16 +14,3 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 }
-
-//fazer o check de erros
-//ler o csv e colocar num dicionario
-//ler o input e para cada linha:
-    //calcular o resultado
-    //imprimir 2011-01-03 => 3 = 0.9
-
-
-
-
-// ##input
-// *data --------------------------------> pegar nesta data o exchange rate e multiplicar pela qtd de btc
-// *qtd de btcs

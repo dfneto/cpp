@@ -104,7 +104,7 @@ int BitcoinExchange::calculate(char *inputFile)
     while (std::getline(file, line)) {  // Read file line by line
         std::istringstream iss(line);
         std::string date, separator, valueStr;
-        float value;
+        float value, exchangeRate;
 
         if (std::getline(iss, date, ' ') &&
             std::getline(iss, separator, '|') &&
@@ -122,11 +122,14 @@ int BitcoinExchange::calculate(char *inputFile)
                 file.close();
                 return 1;
             }
+            
+            exchangeRate = getExchangeRate(date);
+            std::cout << "value for the date: " << exchangeRate << std::endl;
 
             std::cout << date << " => " 
               << std::fixed << std::setprecision(value == (int)value ? 0 : 1) << value 
               << " = " 
-              << std::fixed << std::setprecision(2) << this->map[date] * value 
+              << std::fixed << std::setprecision(2) << value * exchangeRate
               << std::endl;
         } else {
             std::cerr << "Error: Invalid line format." << std::endl;
@@ -137,4 +140,19 @@ int BitcoinExchange::calculate(char *inputFile)
 
     file.close();
     return 0;
+}
+
+float BitcoinExchange::getExchangeRate(const std::string &date) {
+    if (this->map.find(date) != this->map.end()) {
+        return this->map[date];
+    } else {
+        return getExchangeRate(decreaseDate(date));    
+    }
+}
+
+//TODO: make this code const & and decrease the date by one day
+const std::string BitcoinExchange::decreaseDate(std::string date)
+{
+    date = "2042-12-12";
+    return date;
 }
