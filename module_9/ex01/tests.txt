@@ -1,3 +1,0 @@
-dividir por 0
-ter teste para cada erro e excecao
-testar com espacos

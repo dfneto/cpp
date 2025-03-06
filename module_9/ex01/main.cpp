@@ -8,7 +8,6 @@ int main(int argc, char *argv[]) {
     }
     ReversePolishNotation rpn;
     try {
-        // rpn.calculateRPN(argv[1]);
         std::cout << "RPN is: " << rpn.calculateRPN(argv[1]) << std::endl;
     } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;

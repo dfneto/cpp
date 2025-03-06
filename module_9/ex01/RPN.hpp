@@ -8,17 +8,13 @@
 #include 	<cstdlib>	//atof
 #include 	<stdexcept>  // Required for standard exceptions
 
-//TODO: transformar a entrada em ""
-//TODO: fiz um pouco do parser da entrada, mas não trato somente números por exemplo
-//DONE: criar a stask e começar a adicionar elementos a ela
-
 class ReversePolishNotation {
 	private:
 		ReversePolishNotation(const ReversePolishNotation &src);
 		ReversePolishNotation&		operator=(const ReversePolishNotation &rhs);
 		bool 						isNumber(const std::string &s);
 		bool 						isOperator(const std::string &s);
-		bool						checkRPNInput(char *);
+		void						checkRPNInput(char *);
 		double 						makeTheMath(char *);
 		double						applyOperator(double, double, char);
 

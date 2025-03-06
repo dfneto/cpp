@@ -57,12 +57,11 @@ double ReversePolishNotation::applyOperator(double left, double right, char op)
 }
 
 double ReversePolishNotation::calculateRPN(char *argv) {
-    if (!checkRPNInput(argv))
-        return 1;
+    checkRPNInput(argv);;
     return makeTheMath(argv);
 }
 
-bool ReversePolishNotation::checkRPNInput(char *argv)
+void ReversePolishNotation::checkRPNInput(char *argv)
 {
     int numberCount = 0;
     std::istringstream iss(argv);  // Convert CLI input to istringstream
@@ -72,21 +71,15 @@ bool ReversePolishNotation::checkRPNInput(char *argv)
         if (isNumber(token)) {
             numberCount++;
             if (numberCount > 10) {
-                std::cerr << "Error: Too many numbers (max 10 allowed)." << std::endl;
-                return false;
+                throw std::runtime_error("Error: Too many numbers (max 10 allowed).");
             }
         } else if (!isOperator(token)) {
-            std::cerr << "Error: Invalid token '" << token << "' detected." << std::endl;
-            return false;
+            throw std::runtime_error("Invalid token '" + token + "' detected.");
         }
     }
-
     if (numberCount == 0) {
-        std::cerr << "Error: No numbers found." << std::endl;
-        return false;
+        throw std::runtime_error("Error: No numbers found.");
     }
-
-    return true;
 }
 
 double ReversePolishNotation::makeTheMath(char *argv) {
@@ -97,9 +90,7 @@ double ReversePolishNotation::makeTheMath(char *argv) {
         if (isOperator(token)) {
 
             if (this->stack.size() < 2)
-                throw std::runtime_error("some problem in the sequence of number \
-                and operators! You should garantee that before an operator \
-                you have at least two numbers."); 
+                throw std::runtime_error("Insufficient values in the expression."); 
             char op = token[0];
             double left, right;
             right = this->stack.top();
@@ -112,5 +103,7 @@ double ReversePolishNotation::makeTheMath(char *argv) {
             this->stack.push(std::atof(token.c_str()));
         }
     }
+    if (this->stack.size() > 1)
+        throw std::runtime_error("The user input has too many values."); 
     return this->stack.top();
 }
