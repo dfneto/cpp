@@ -41,18 +41,34 @@ bool ReversePolishNotation::isOperator(const std::string &s) {
     return s == "+" || s == "-" || s == "*" || s == "/";
 }
 
-bool ReversePolishNotation::checkRPNInput(int argc, char *argv[])
+double ReversePolishNotation::applyOperator(double left, double right, char op)
 {
-    if (argc < 2) {
-        std::cerr << "Error: No input provided." << std::endl;
-        return false;
+    switch (op) {
+        case '+': return left + right;
+        case '-': return left - right;
+        case '*': return left * right;
+        case '/': 
+            if (right == 0) 
+                throw std::runtime_error("Error: Division by zero!"); 
+            return left / right;
+        default:
+            throw std::runtime_error("Error: Invalid operator!");
     }
+}
 
+double ReversePolishNotation::calculateRPN(char *argv) {
+    if (!checkRPNInput(argv))
+        return 1;
+    return makeTheMath(argv);
+}
+
+bool ReversePolishNotation::checkRPNInput(char *argv)
+{
     int numberCount = 0;
-    
-    for (int i = 1; i < argc; ++i) {
-        std::string token(argv[i]);
+    std::istringstream iss(argv);  // Convert CLI input to istringstream
+    std::string token;
 
+    while (iss >> token) {
         if (isNumber(token)) {
             numberCount++;
             if (numberCount > 10) {
@@ -71,4 +87,30 @@ bool ReversePolishNotation::checkRPNInput(int argc, char *argv[])
     }
 
     return true;
+}
+
+double ReversePolishNotation::makeTheMath(char *argv) {
+    std::istringstream iss(argv);  // Convert CLI input to istringstream
+    std::string token;
+
+    while (iss >> token) {
+        if (isOperator(token)) {
+
+            if (this->stack.size() < 2)
+                throw std::runtime_error("some problem in the sequence of number \
+                and operators! You should garantee that before an operator \
+                you have at least two numbers."); 
+            char op = token[0];
+            double left, right;
+            right = this->stack.top();
+            stack.pop(); 
+            left = this->stack.top();
+            stack.pop(); 
+
+            this->stack.push(applyOperator(left, right, op));
+        } else {
+            this->stack.push(std::atof(token.c_str()));
+        }
+    }
+    return this->stack.top();
 }
