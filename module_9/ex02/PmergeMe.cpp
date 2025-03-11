@@ -17,6 +17,18 @@ PmergeMe::~PmergeMe()
 {
 }
 
+void printGroupedPairs(const GroupedPairs& groups) {
+    for (size_t i = 0; i < groups.size(); i++) {
+        std::cout << "(";
+        for (size_t j = 0; j < groups[i].size(); j++) {
+            std::cout << groups[i][j];
+            if (j < groups[i].size() - 1) std::cout << ", ";
+        }
+        std::cout << ") ";
+    }
+    std::cout << std::endl;
+}
+
 // Function to initialize pairing from a list of numbers
 GroupedPairs initializePairs(const std::vector<int>& values) {
     GroupedPairs pairedValues;
@@ -41,29 +53,10 @@ void PmergeMe::pmergeMe(char **argv)
 {
     std::vector<int> values = convertInputIntoAVector(argv);
        
-    std::vector<std::pair<int, int> > paired_values;
 
-    int b, a = 0;
-    // Iterate through the vector in steps of 2
-    for (size_t i = 0; i + 1 < values.size(); i += 2) {
-        //b eh o menor
-        if (values[i] > values[i + 1]) {
-            a = values[i];
-            b = values[i + 1];
-        } else {
-            a = values[i + 1];
-            b = values[i];
-        }
-        paired_values.push_back(std::make_pair(b, a));
-    }
-
-    // Print the pairs
-    std::cout << "Paired values:\n";
-    for (size_t i = 0; i < paired_values.size(); ++i) {
-        std::cout << "(" << paired_values[i].first << ", " << paired_values[i].second << ") ";
-    }
-    std::cout << std::endl;
-
+    GroupedPairs pairedValues = initializePairs(values);
+    std::cout << "Step 1:" << std::endl;
+    printGroupedPairs(pairedValues);
 
 }
 

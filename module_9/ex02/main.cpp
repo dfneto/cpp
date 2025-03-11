@@ -5,7 +5,10 @@
 #include <utility>  // For std::pair
 
 
-//TODO: implement error message in standard error
+// TODO: tenho que reler os artigos para criar a condicao de parada de pairing
+// atualmente estou fazendo o Step 1: the division into the pairs & sorting
+
+//TODO: implement error message in standard error4
 //TODO: management of errors related to duplicates. Should I check the input for some error?
 int main(int argc, char *argv[]) {
     (void) argc;
