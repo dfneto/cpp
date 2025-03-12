@@ -115,28 +115,6 @@ void PmergeMe::mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mer
     mergedPairs.push_back(group);
 }
 
-//Pair and merge the input into elements (pair of numbers, pair of pair of numbers etc.)
-void PmergeMe::pmergeMe(char **argv)
-{
-    std::vector<int> values = convertInputIntoAVector(argv);
-
-    // Create pair of numbers. 1 2 -> (1, 2)
-    GroupedPairs pairedValues = initializePairs(values);
-    std::cout << "Step 1:" << std::endl;
-    printGroupedPairs(pairedValues);
-    
-    // Merging pairs
-    int step = 2;
-    while (isPairable(pairedValues))
-    { 
-        pairedValues = generatePairs(pairedValues);
-
-        std::cout << "Step " << step << ":" << std::endl;
-        printGroupedPairs(pairedValues);
-        step++;
-    }
-}
-
 std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
 {
     (void) argv;
@@ -158,3 +136,43 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
     }
     return values;
 }
+
+//Pair and merge the input into elements (pair of numbers, pair of pair of numbers etc.)
+void PmergeMe::pmergeMe(char **argv)
+{
+    std::vector<int> values = convertInputIntoAVector(argv);
+
+    // Create pair of numbers. 1 2 -> (1, 2)
+    GroupedPairs pairedValues = initializePairs(values);
+    std::cout << "Step 1:" << std::endl;
+    printGroupedPairs(pairedValues);
+    
+    // Merging pairs
+    int step = 2;
+    while (isPairable(pairedValues))
+    { 
+        pairedValues = generatePairs(pairedValues);
+
+        std::cout << "Step " << step << ":" << std::endl;
+        printGroupedPairs(pairedValues);
+        step++;
+    }
+
+    //Binary insertion sort
+    // Define a deque of vectors of integers
+    std::deque<GroupedPairs> main;
+    
+    //TODO 1: separar os grupos e adicionar eles de acordo com pend, main e odd
+    //OU ver o codigo da galera
+    main.push_back(pairedValues);
+
+
+
+
+    // Iterate through the deque and print each vector
+     for (std::deque<GroupedPairs>::iterator it = main.begin(); it != main.end(); ++it) {
+        std::cout << *it;
+    }
+}
+
+

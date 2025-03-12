@@ -5,7 +5,22 @@
 #include	<vector>
 #include 	<stdexcept>  // Required for standard exceptions
 
+
 typedef std::vector<std::vector<int> > GroupedPairs;
+// Overload operator<< for GroupedPairs
+inline std::ostream& operator<<(std::ostream& os, const GroupedPairs& pairs) {
+    os << "[";
+    for (std::vector<std::vector<int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
+        os << " [";
+        for (std::vector<int>::const_iterator vit = it->begin(); vit != it->end(); ++vit) {
+            os << *vit;
+            if (vit + 1 != it->end()) os << ", "; // Avoid trailing comma
+        }
+        os << "]";
+    }
+    os << " ]";
+    return os;
+}
 
 class PmergeMe {
 	private:
