@@ -3,13 +3,12 @@
 
 #include	<iostream> 	//cout, cerr
 #include	<vector>
-#include 	<stdexcept>  // Required for standard exceptions
 
 
 typedef std::vector<std::vector<int> > GroupedPairs;
 // Overload operator<< for GroupedPairs
 inline std::ostream& operator<<(std::ostream& os, const GroupedPairs& pairs) {
-    os << "[";
+    // os << "[";
     for (std::vector<std::vector<int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
         os << " [";
         for (std::vector<int>::const_iterator vit = it->begin(); vit != it->end(); ++vit) {
@@ -18,7 +17,7 @@ inline std::ostream& operator<<(std::ostream& os, const GroupedPairs& pairs) {
         }
         os << "]";
     }
-    os << " ]";
+    // os << " ]";
     return os;
 }
 
@@ -33,6 +32,8 @@ class PmergeMe {
 		void printGroupedPairs(const GroupedPairs& groups);
 		bool isPairable(GroupedPairs &pairedValues);
 		GroupedPairs initializePairs(const std::vector<int>& values);
+		std::deque<GroupedPairs> splitPairs(const std::vector<int> & group);
+		
 
 
 	public:
