@@ -164,72 +164,19 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
 void PmergeMe::pmergeMe(char **argv)
 {
     std::vector<int> values = convertInputIntoAVector(argv);
-
-    // Create pair of numbers. 1 2 -> (1, 2)
-    GroupedPairs pairedValues = initializePairs(values);
-    std::cout << "Step 1:" << std::endl;
-    printGroupedPairs(pairedValues);
     
-    // Merging pairs
-    int step = 2;
-    while (isPairable(pairedValues)) //make pairs and swap
-    { 
-        pairedValues = generatePairs(pairedValues);
+    //compare pairs of group_size and swap
+    int group_size = 4;
+    // int temp;
 
-        std::cout << "Step " << step << ":" << std::endl;
-        printGroupedPairs(pairedValues);
-        step++;
+    for (size_t i = group_size - 1; i + group_size < values.size(); i += 2 * group_size) {
+        std::cout << i << " - " << i + group_size << std::endl;
+        // if (values[i] > values[i+1]) {
+            // temp = values[i+1];
+            // values[i+1] = values[i];
+            // values[i] = temp;
+        // }
     }
-
-    //Start to use insertion
-    std::deque<GroupedPairs> main;
-    std::deque<GroupedPairs> pend;
-    std::deque<int> odd;
-    std::deque<int> rest;
-    
-    main = splitPairs(pairedValues[0]);
-
-    //Iteracao 1: separar o pairedValues em main, odd e rest
-    for (size_t i = 0; i < pairedValues.size(); i++)
-    {
-        for (size_t j = 0; j < pairedValues[i].size(); j++)
-        {
-            if (i == 1)
-                odd.push_back(pairedValues[i][j]);
-            else if (i == 2)
-                rest.push_back(pairedValues[i][j]);
-        }
-    }
-
-    // Iterate through the deque and print each vector
-    std::cout << "Main: ";
-    for (std::deque<GroupedPairs>::iterator it = main.begin(); it != main.end(); ++it) {
-        std::cout << *it;
-        if (it + 1 != main.end())
-            std::cout << ", ";
-    }
-    std::cout << "\nOdd: ";
-    for (std::deque<int>::iterator it = odd.begin(); it != odd.end(); ++it) {
-        std::cout << *it;
-        if (it + 1 != odd.end())
-            std::cout << ", ";
-    }
-    std::cout << "\nRest: ";
-    for (std::deque<int>::iterator it = rest.begin(); it != rest.end(); ++it) {
-        std::cout << *it;
-        if (it + 1 != rest.end())
-            std::cout << ", ";
-    }
-    std::cout << std::endl;
-
-    //Iteracao 2: separar o main em main e pend
-    for (size_t i = 0; i < main.size(); i++)
-    {
-        if (i % 2 == 0)
-            main.push_back(main[i]);
-        else
-            pend.push_back(main[i]);
-    }   
 
 }
 
