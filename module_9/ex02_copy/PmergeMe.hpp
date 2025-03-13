@@ -64,13 +64,13 @@ template <typename T> void PmergeMe::_merge_insertion_sort(T& container, int pai
        where there are numbers (0 in this case) which can't even form a pair.
        Those values should be ignored. */
     Iterator start = container.begin();
-    Iterator last = next(container.begin(), pair_level * (pair_units_nbr));
+    Iterator last = next(container.begin(), pair_level * (pair_units_nbr));                 //O que faz o next??
     Iterator end = next(last, -(is_odd * pair_level));
 
     /* Swap pairs of numbers, pairs, pairs of pairs etc by the biggest pair
        number. After each swap we recurse. */
     int jump = 2 * pair_level;
-    for (Iterator it = start; it != end; std::advance(it, jump))
+    for (Iterator it = start; it != end; std::advance(it, jump))                        //do primeiro ao ultimo
     {
         Iterator this_pair = next(it, pair_level - 1);
         Iterator next_pair = next(it, pair_level * 2 - 1);

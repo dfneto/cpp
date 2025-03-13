@@ -3,6 +3,7 @@
 
 #include	<iostream> 	//cout, cerr
 #include	<vector>
+#include 	<deque>
 
 
 typedef std::vector<std::vector<int> > GroupedPairs;

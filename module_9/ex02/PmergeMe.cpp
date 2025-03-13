@@ -66,11 +66,11 @@ GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
     }
 
     // TODO: fix this shit
-    // If an odd element is left pair it with MAX_INT
+    // If an odd element is left pair it with himself
     if (values.size() % 2 != 0) {
         std::vector<int> lastPair ;
         lastPair.push_back(values.back());
-        lastPair.push_back(1000);
+        lastPair.push_back(values.back());
         pairedValues.push_back(lastPair);
     }
 
@@ -80,6 +80,9 @@ GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
 //Can I pair the values?
 bool PmergeMe::isPairable(GroupedPairs &pairedValues)
 {
+    // When the order reaches 16, it is less than half the size of the list. 
+    // In other words, we cannot make two pairs to swap them. At this point, 
+    // we start using insertion. We divide the order by 2 and start sorting using insertion.
     // std::cout << "First pair size: " << pairedValues[0].size() << std::endl;
     // std::cout << "group size: " << pairedValues.size() << std::endl;
     if (pairedValues[0].size() == pairedValues[1].size())
@@ -169,7 +172,7 @@ void PmergeMe::pmergeMe(char **argv)
     
     // Merging pairs
     int step = 2;
-    while (isPairable(pairedValues))
+    while (isPairable(pairedValues)) //make pairs and swap
     { 
         pairedValues = generatePairs(pairedValues);
 
@@ -178,6 +181,7 @@ void PmergeMe::pmergeMe(char **argv)
         step++;
     }
 
+    //Start to use insertion
     std::deque<GroupedPairs> main;
     std::deque<GroupedPairs> pend;
     std::deque<int> odd;
