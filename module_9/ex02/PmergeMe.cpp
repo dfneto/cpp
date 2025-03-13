@@ -148,6 +148,7 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
     size_t size = sizeof(arr) / sizeof(arr[0]);
 
 
+    std::cout << "[";
     // Copy elements from the array into the vector
     for (size_t i = 0; i < size; ++i) {
         values.push_back(arr[i]);
@@ -155,29 +156,42 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
         if (i != size - 1)
             std::cout << ", ";
         else 
-            std::cout << std::endl;
+            // std::cout << std::endl;
+            std::cout << "]" << std::endl;
     }
     return values;
+}
+
+void printVector(const std::vector<int>& vec) {
+    std::cout << "[";
+    for (size_t i = 0; i < vec.size(); i++) {
+        std::cout << vec[i];
+        if (i < vec.size() - 1) {
+            std::cout << ", ";  // Add a comma between elements
+        }
+    }
+    std::cout << "]" << std::endl;
 }
 
 //Pair and merge the input into elements (pair of numbers, pair of pair of numbers etc.)
 void PmergeMe::pmergeMe(char **argv)
 {
     std::vector<int> values = convertInputIntoAVector(argv);
-    
+
     //compare pairs of group_size and swap
-    int group_size = 4;
-    // int temp;
+    int group_size = 1;
+    int temp;
 
     for (size_t i = group_size - 1; i + group_size < values.size(); i += 2 * group_size) {
-        std::cout << i << " - " << i + group_size << std::endl;
-        // if (values[i] > values[i+1]) {
-            // temp = values[i+1];
-            // values[i+1] = values[i];
-            // values[i] = temp;
-        // }
+        if (values[i] > values[i+group_size]) {
+            temp = values[i+group_size];
+            values[i+group_size] = values[i];
+            values[i] = temp;
+        }
     }
 
+    printVector(values);
+    
 }
 
 
