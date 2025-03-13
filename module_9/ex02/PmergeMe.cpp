@@ -179,19 +179,31 @@ void PmergeMe::pmergeMe(char **argv)
     std::vector<int> values = convertInputIntoAVector(argv);
 
     //compare pairs of group_size and swap
-    int group_size = 1;
+    size_t group_size = 1;
+
+    values = pairAndSwap(group_size, values);
+    printVector(values);
+}
+
+std::vector<int> & PmergeMe::pairAndSwap(size_t group_size, std::vector<int> &values)
+{
     int temp;
 
-    for (size_t i = group_size - 1; i + group_size < values.size(); i += 2 * group_size) {
-        if (values[i] > values[i+group_size]) {
-            temp = values[i+group_size];
-            values[i+group_size] = values[i];
+    if (group_size > values.size()/2) 
+        return values;
+
+    for (size_t i = group_size - 1; i + group_size < values.size(); i += 2 * group_size)
+    {
+        if (values[i] > values[i + group_size])
+        {
+            temp = values[i + group_size];
+            values[i + group_size] = values[i];
             values[i] = temp;
         }
     }
 
-    printVector(values);
-    
+    group_size = group_size * 2;
+
+    // printVector(values);
+    return pairAndSwap(group_size, values);
 }
-
-

@@ -40,8 +40,9 @@ class PmergeMe {
 	public:
 		PmergeMe();
 		~PmergeMe();
-		void		pmergeMe(char **);
-		
+        void pmergeMe(char **);
+
+        std::vector<int> & pairAndSwap(size_t group_size, std::vector<int> &values);
 };
 
 #endif
