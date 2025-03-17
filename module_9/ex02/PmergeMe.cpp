@@ -4,26 +4,6 @@ PmergeMe::PmergeMe(const PmergeMe &src) {
     (void) src;
 }
 
-// Define the splitPairs function
-// std::deque<GroupedPairs> PmergeMe::splitPairs(const std::vector<int> & group) {
-//     std::deque<GroupedPairs> main;
-//     GroupedPairs    b;
-//     std::vector<int> b_;
-//     GroupedPairs    a;
-//     std::vector<int> a_;
-//     for (size_t i = 0; i < group.size(); ++i) {
-//         if (i < group.size() / 2)
-//             b_.push_back(group[i]);
-//         else
-//             a_.push_back(group[i]);
-//     }
-//     b.push_back(b_);
-//     a.push_back(a_);
-//     main.push_back(b);
-//     main.push_back(a);
-//     return main;
-// }
-
 PmergeMe&		PmergeMe::operator=(const PmergeMe &rhs) {
     (void) rhs;
     return *this;
@@ -170,8 +150,10 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
     (void) argv;
     // Define a vector and manually insert elements (C++98 compatible)
     std::vector<int> values;
-    int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7};
+    // int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7};
     // int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7, 40, 41, 42, 43, 44, 45, 46, 47, 48};
+    int arr[] = {23, 5, 17, 42, 8, 36, 29, 14, 50, 7, 3, 48, 11, 20, 39, 25, 9, 31, 45, 16, 6, 38, 2, 44, 28, 21, 19, 33, 12, 27};
+
     size_t size = sizeof(arr) / sizeof(arr[0]);
 
 
@@ -201,15 +183,15 @@ std::vector<int> PmergeMe::convertPairsToVector(const GroupedPairs& pairedValues
 void PmergeMe::splitSortInsert(GroupedPairs& pairedVector, size_t group_size) {
     (void) pairedVector;
     std::cout << "splitSortInsert called with group_size: " << group_size << std::endl;
-    
 }
 
 GroupedPairs PmergeMe::getRest(GroupedPairs &pairedVector) {
     GroupedPairs rest;
     size_t lastGroupSize = pairedVector.back().size();
-    if (lastGroupSize != pairedVector[0].size())
+    if (lastGroupSize != pairedVector[0].size()) {
         rest = makeGroups(pairedVector.back(), pairedVector.back().size());
-    pairedVector.erase(pairedVector.end() - 1);
+        pairedVector.erase(pairedVector.end() - 1);
+    }
     return rest;
 }
 
@@ -262,12 +244,12 @@ std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group
         {
             if (pend[i].back() < main[j].back()) {
                 main.insert(main.begin() + j, pend[i]);
-                pend.erase(pend.begin() + i);
-                break;
+                break;  
             }
         }
     }
-    
+
+    //Iterate through odd and add to main
     if (!odd.empty())
     {
         for (size_t i = 0; i < main.size(); i++)
@@ -331,61 +313,4 @@ void PmergeMe::pmergeMe(char **argv)
     result = mergeInsertion(result, group_size);
     printVector(result, "Final result after merge and swap");
 
-
-    // //Start to use insertion
-    // std::deque<GroupedPairs> main;
-    // std::deque<GroupedPairs> pend;
-    // std::deque<int> odd;
-    // std::deque<int> rest;
-    
-    // main = splitPairs(pairedValues[0]);
-
-    // //Iteracao 1: separar o pairedValues em main, odd e rest
-    // for (size_t i = 0; i < pairedValues.size(); i++)
-    // {
-    //     for (size_t j = 0; j < pairedValues[i].size(); j++)
-    //     {
-    //         if (i == 1)
-    //             odd.push_back(pairedValues[i][j]);
-    //         else if (i == 2)
-    //             rest.push_back(pairedValues[i][j]);
-    //     }
-    // }
-
-    // // Iterate through the deque and print each vector
-    // std::cout << "Main: ";
-    // for (std::deque<GroupedPairs>::iterator it = main.begin(); it != main.end(); ++it) {
-    //     std::cout << *it;
-    //     if (it + 1 != main.end())
-    //         std::cout << ", ";
-    // }
-    // std::cout << "\nOdd: ";
-    // for (std::deque<int>::iterator it = odd.begin(); it != odd.end(); ++it) {
-    //     std::cout << *it;
-    //     if (it + 1 != odd.end())
-    //         std::cout << ", ";
-    // }
-    // std::cout << "\nRest: ";
-    // for (std::deque<int>::iterator it = rest.begin(); it != rest.end(); ++it) {
-    //     std::cout << *it;
-    //     if (it + 1 != rest.end())
-    //         std::cout << ", ";
-    // }
-    // std::cout << std::endl;
-
-    // //Iteracao 2: separar o main em main e pend
-    // for (size_t i = 0; i < main.size(); i++)
-    // {
-    //     if (i % 2 == 0)
-    //         main.push_back(main[i]);
-    //     else
-    //         pend.push_back(main[i]);
-    // }
 }
-
-Parei dando erro aqui
-Pend: (2, 11) (9, 18) (5, 12) (3, 10) 
-Main: (6, 15) (8, 16) (0, 17) (14, 19) (4, 20) (1, 21) 
-Odd: 
-Rest: 
-Main after insertion: (2, 11) (5, 12) (6, 15) (8, 16) (0, 17) (14, 19) (4, 20) (1, 21) 
