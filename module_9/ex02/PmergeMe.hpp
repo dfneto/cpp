@@ -20,16 +20,21 @@ class PmergeMe {
         bool isPairable(size_t inputSize, size_t groupSize);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
         std::vector<int> mergeInsertion(std::vector<int> &result, size_t group_size);
+        void extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend);
+        void removeExtraElements(std::__1::vector<int> &result);
+        void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
+        void NewFunction(GroupedPairs &pend, GroupedPairs &main);
+        void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
         void printGroupedPairs(const GroupedPairs &groups);
         GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
         GroupedPairs getOdd(GroupedPairs &pairedVector);
-
-    public:
+        void printVector(std::__1::vector<int> &result, const std::string &msg);
+        
+        public:
 		PmergeMe();
 		~PmergeMe();
         void pmergeMe(char **);
-        void printVector(std::__1::vector<int> &result, const std::string &msg);
 
 };
 
