@@ -9,7 +9,7 @@ PmergeMe&		PmergeMe::operator=(const PmergeMe &rhs) {
     return *this;
 }
 
-PmergeMe::PmergeMe()
+PmergeMe::PmergeMe() : _toRemove(-1)
 {
 }
 
@@ -76,12 +76,13 @@ GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
         pairedValues.push_back(pair);
     }
 
-    // TODO: fix this shit
     // If an odd element is left pair it with himself
+    // and remove it in the end
     if (values.size() % 2 != 0) {
         std::vector<int> lastPair ;
         lastPair.push_back(values.back());
         lastPair.push_back(values.back());
+        _toRemove = values.back();
         pairedValues.push_back(lastPair);
     }
 
@@ -150,12 +151,10 @@ std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
     (void) argv;
     // Define a vector and manually insert elements (C++98 compatible)
     std::vector<int> values;
-    // int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7};
-    // int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7, 40, 41, 42, 43, 44, 45, 46, 47, 48};
-    int arr[] = {23, 5, 17, 42, 8, 36, 29, 14, 50, 7, 3, 48, 11, 20, 39, 25, 9, 31, 45, 16, 6, 38, 2, 44, 28, 21, 19, 33, 12, 27};
+    int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7, 33};
+    // int arr[] = {23, 5, 17, 42, 8, 36, 29, 14, 50, 7, 3, 48, 11, 20, 39, 25, 9, 31, 45, 16, 6, 38, 2, 44, 28, 21, 19, 33, 12, 27};
 
     size_t size = sizeof(arr) / sizeof(arr[0]);
-
 
     // Copy elements from the array into the vector
     for (size_t i = 0; i < size; ++i) {
@@ -206,7 +205,6 @@ GroupedPairs PmergeMe::getOdd(GroupedPairs &pairedVector) {
 
 // Define the mergeInsertion function
 std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group_size) {
-    // std::sort(result.begin(), result.end());
     //gs = 16 não faço nada
     group_size /= 2;                                                           
     GroupedPairs pairedVector = makeGroups(result, group_size);
@@ -242,7 +240,7 @@ std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group
     {
         for (size_t j = 0; j < main.size(); j++)
         {
-            if (pend[i].back() < main[j].back()) {
+            if (pend[i].back() <= main[j].back()) {
                 main.insert(main.begin() + j, pend[i]);
                 break;  
             }
@@ -273,10 +271,18 @@ std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group
     result = convertPairsToVector(main);
     
     if (group_size == 1)
+    {
+        for (size_t i = 0; i < result.size(); i++)
+        {
+            if (result[i] == _toRemove)
+            {
+                result.erase(result.begin() + i);
+                break;
+            }
+        }
         return result;
+    }
     return mergeInsertion(result, group_size);
-
-
 }
 
 //Pair the input into pairs of numbers
@@ -290,20 +296,20 @@ void PmergeMe::pmergeMe(char **argv)
     // Create pair of numbers. 1 2 -> (1, 2)
     GroupedPairs pairedValues = initializePairs(values);
     // std::cout << "Step 1:" << std::endl;
-    // printGroupedPairs(pairedValues);
+    printGroupedPairs(pairedValues);
     
     size_t group_size = 2;
 
     // Merging and swap pairs
-    // int step = 2;
+    int step = 2;
     while (isPairable(inputSize, group_size)) 
     { 
         //make pair and swap
         pairedValues = mergeAndSwap(pairedValues);
         group_size *= 2;
-        // std::cout << "Step " << step << ":" << std::endl;
-        // printGroupedPairs(pairedValues);
-        // step++;
+        std::cout << "Step " << step << ":" << std::endl;
+        printGroupedPairs(pairedValues);
+        step++;
     }
     
     std::vector<int> result = convertPairsToVector(pairedValues);
