@@ -1,5 +1,7 @@
 #include "PmergeMe.hpp"
 
+int PmergeMe::nbrOfComps = 0;
+
 PmergeMe::PmergeMe(const PmergeMe &src) {
     (void) src;
 }
@@ -202,17 +204,18 @@ void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
 }
 
 //This should be done ideally using jacobsthal's number
-void PmergeMe::moveFromTo(GroupedPairs &auxVector, GroupedPairs &main)
+void PmergeMe::moveFromTo(GroupedPairs &vec, GroupedPairs &main)
 {
-    if (!auxVector.empty())
+    if (!vec.empty())
     {
-        for (size_t i = 0; i < auxVector.size(); i++)
+        for (size_t i = 0; i < vec.size(); i++)
         {
             for (size_t j = 0; j < main.size(); j++)
             {
-                if (auxVector[i].back() <= main[j].back())
+                if (vec[i].back() <= main[j].back())
                 {
-                    main.insert(main.begin() + j, auxVector[i]);
+                    PmergeMe::nbrOfComps++;
+                    main.insert(main.begin() + j, vec[i]);
                     break;
                 }
             }
@@ -235,7 +238,7 @@ void PmergeMe::log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, Gr
 //Pair the input into pairs of numbers
 //Merge and swap the pairs into pairs of pairs and so on
 //Finally apply merge-insertion sort using Jacobsthal's number
-void PmergeMe::pmergeMe(std::vector<int> values)
+std::vector<int> PmergeMe::pmergeMe(std::vector<int> values)
 {
     size_t inputSize = values.size();
 
@@ -253,9 +256,7 @@ void PmergeMe::pmergeMe(std::vector<int> values)
     
     std::vector<int> result = convertPairsToVector(pairedValues);
 
-    result = mergeInsertion(result, group_size);
-    printVector(result, "Final result after merge and swap");
-
+    return mergeInsertion(result, group_size);
 }
 
 // Define the mergeInsertion function

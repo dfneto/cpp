@@ -122,23 +122,6 @@ static bool retained_original_values(std::set<int>& original_values, std::vector
 
 int main(int argc, char** argv)
 {
-    
-    // List of numbers as string literals
-    // const char* args[] = { "name",
-    //     "11", "2", "17", "0", "16", "8", "6", "15", "10", "3",
-    //     "21", "1", "18", "9", "14", "19", "12", "5", "4", "20",
-    //     "13", "7", "40", "41", "42", "43", "44", "45", "46", "47", "48"
-    // };
-
-    // int argc = sizeof(args) / sizeof(args[0]);  // Count arguments
-    // char** argv = new char*[argc + 1];  // Allocate argv array (+1 for NULL)
-
-    // // Duplicate strings into argv to create mutable copies
-    // for (int i = 0; i < argc; ++i) {
-    //     argv[i] = strdup(args[i]);  // strdup() is C++98 compatible
-    // }
-    // argv[argc] = NULL;  // Null-terminate argv like a real command-line input
-
     PmergeMe pm;
 	
     std::string status = validate(argc, argv);
@@ -151,17 +134,17 @@ int main(int argc, char** argv)
 
     clock_t start_vec = clock();
     std::vector<int> vec = argv_to_vector(argc, argv);
-    pm.pmergeMe(vec);
+    vec = pm.pmergeMe(vec);
     clock_t end_vec = clock();
     double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
 
-	// PmergeMe::nbr_of_comps = 0;
     // clock_t start_deque = clock();
     // std::deque<int> deque = argv_to_deque(argc, argv);
     // pm.sort_deque(deque);
     // clock_t end_deque = clock();
     // double time_elapsed_deque = static_cast<double>(end_deque - start_deque) / CLOCKS_PER_SEC;
 
+    //TODO: entender isso
     if (!is_sorted(vec) || (int)vec.size() != (argc - 1) || !retained_original_values(original_values, vec))
 	{
         std::cout << "Vector was not sorted properly.\n";
@@ -181,5 +164,5 @@ int main(int argc, char** argv)
     // std::cout << "Time to process a range of " << deque.size()
     //           << " elements with std::deque:  " << std::fixed << std::setprecision(6)
     //           << time_elapsed_deque << "s\n";
-	// std::cout << "Number of comparisons: " << PmergeMe::nbr_of_comps << '\n';
+	std::cout << "Number of comparisons: " << PmergeMe::nbrOfComps << '\n';
 }
