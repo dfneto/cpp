@@ -46,15 +46,15 @@ static std::vector<int> argv_to_vector(int argc, char** argv)
     return res;
 }
 
-// static std::deque<int> argv_to_deque(int argc, char** argv)
-// {
-//     std::deque<int> res;
-//     for (int i = 1; i < argc; i++)
-//     {
-//         res.push_back(atoi(argv[i]));
-//     }
-//     return res;
-// }
+static std::deque<int> argv_to_deque(int argc, char** argv)
+{
+    std::deque<int> res;
+    for (int i = 1; i < argc; i++)
+    {
+        res.push_back(atoi(argv[i]));
+    }
+    return res;
+}
 
 static std::set<int> argv_to_set(int argc, char** argv)
 {
@@ -134,7 +134,7 @@ int main(int argc, char** argv)
 
     clock_t start_vec = clock();
     std::vector<int> vec = argv_to_vector(argc, argv);
-    vec = pm.pmergeMe(vec);
+    vec = pm.pmergeMe(vec); 
     clock_t end_vec = clock();
     double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
 
@@ -166,3 +166,98 @@ int main(int argc, char** argv)
     //           << time_elapsed_deque << "s\n";
 	std::cout << "Number of comparisons: " << PmergeMe::nbrOfComps << '\n';
 }
+
+// int main_chat(int argc, char** argv)
+// {
+//     PmergeMe pm;
+    
+//     std::string status = validate(argc, argv);
+//     if (status != "")
+//     {
+//         std::cerr << "Error: " << status << "\n";
+//         return EXIT_FAILURE;
+//     }
+//       std::set<int> original_values = argv_to_set(argc, argv);
+
+//     clock_t start_vec = clock();
+//     std::vector<int> vec = argv_to_vector(argc, argv);
+//     vec = pm.pmergeMe(vec); 
+//     clock_t end_vec = clock();
+//     double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
+
+//     // Debug prints
+//     std::cout << "Original values: ";
+//     for (const auto& val : original_values) {
+//         std::cout << val << " ";
+//     }
+//     std::cout << "\n";
+
+//     std::cout << "Sorted vector: ";
+//     for (const auto& val : vec) {
+//         std::cout << val << " ";
+//     }
+//     std::cout << "\n";
+
+//     if (!is_sorted(vec) || (int)vec.size() != (argc - 1) || !retained_original_values(original_values, vec))
+//     {
+//         std::cout << "Vector was not sorted properly.\n";
+//         return 1;
+//     }
+
+//     std::cout << "\033[31mBefore\033[00m: " << argv_to_str(argc, argv) << "\n";
+//     std::cout << "\033[32mAfter\033[00m:  " << vec_to_str(vec) << "\n";
+//     std::cout << "Time to process a range of " << vec.size()
+//               << " elements with std::vector: " << std::fixed << std::setprecision(6)
+//                << time_elapsed_vec << "s\n";
+//     std::cout << "Number of comparisons: " << PmergeMe::nbrOfComps << '\n';
+// }
+
+// int main() {
+//     PmergeMe pm;
+
+//     // Manually initializing the std::vector (C++98 compatible)
+//     std::vector<int> vec;
+//     vec.push_back(11);
+//     vec.push_back(2);
+//     vec.push_back(17);
+//     vec.push_back(0);
+//     vec.push_back(16);
+//     vec.push_back(8);
+//     vec.push_back(6);
+//     vec.push_back(15);
+//     vec.push_back(10);
+//     vec.push_back(3);
+
+//     // Sorting the std::vector
+//     std::vector<int> sortedVec = pm.sortVec(vec);
+
+//     std::cout << "Sorted Vector: ";
+//     // Use traditional for loop instead of range-based for loop
+//     for (size_t i = 0; i < sortedVec.size(); ++i) {
+//         std::cout << sortedVec[i] << " ";
+//     }
+//     std::cout << std::endl;
+
+//     // Manually initializing the std::deque (C++98 compatible)
+//     std::deque<int> deq;
+//     deq.push_back(14);
+//     deq.push_back(22);
+//     deq.push_back(9);
+//     deq.push_back(3);
+//     deq.push_back(19);
+//     deq.push_back(1);
+//     deq.push_back(16);
+//     deq.push_back(8);
+
+//     // Sorting the std::deque
+//     std::deque<int> sortedDeque = pm.sortDeque(deq);
+
+//     std::cout << "Sorted Deque: ";
+//     // Use traditional for loop instead of range-based for loop
+//     for (size_t i = 0; i < sortedDeque.size(); ++i) {
+//         std::cout << sortedDeque[i] << " ";
+//     }
+//     std::cout << std::endl;
+
+//     return 0;
+// }

@@ -24,20 +24,94 @@ class PmergeMe {
         void printVector(std::__1::vector<int> &result, const std::string &msg);
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
-        std::vector<int> mergeInsertion(std::vector<int> &result, size_t group_size);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
         GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
         GroupedPairs getOdd(GroupedPairs &pairedVector);
         GroupedPairs makeGroups(const std::vector<int>& result, size_t group_size);
+
+        template <typename Container>
+        Container convertPairsToContainer(const GroupedPairs& pairedValues) {
+            Container result;
+            for (size_t i = 0; i < pairedValues.size(); i++) {
+                for (size_t j = 0; j < pairedValues[i].size(); j++) {
+                    result.push_back(pairedValues[i][j]);
+                }
+            }
+            return result;
+        }
+
+        template <typename Container>
+        void removeExtraElements(Container& result);
+
+        template <typename Container>
+        GroupedPairs makeGroups(const Container& result, size_t group_size);
+
+        template <typename Container>
+        Container mergeInsertionSort(Container& result, size_t group_size) {
+            group_size /= 2;
+
+            // Use the generic makeGroups function
+            GroupedPairs pairedVector = makeGroups(result, group_size);
+            
+            GroupedPairs main;
+            GroupedPairs pend;
+            GroupedPairs rest = getRest(pairedVector);
+            GroupedPairs odd = getOdd(pairedVector);
+
+            extract(pairedVector, main, pend);
+            moveFromTo(pend, main);
+            moveFromTo(odd, main);
+
+            // Add odd and rest to main
+            main.insert(main.end(), odd.begin(), odd.end());
+            main.insert(main.end(), rest.begin(), rest.end());
+
+            // Convert to the correct container type (vector or deque)
+            result = convertPairsToContainer<Container>(main);
+
+            if (group_size == 1) {
+                removeExtraElements(result);
+                return result;
+            }
+
+            return mergeInsertionSort(result, group_size);
+        }
+
         
-    public:
+        public:
         static int  nbrOfComps;
 		
         PmergeMe();
 		~PmergeMe();
-        std::vector<int> pmergeMe(std::vector<int> values);
+        
+        //Pair the input into pairs of numbers
+        //Merge and swap the pairs into pairs of pairs and so on
+        //Finally apply merge-insertion sort using Jacobsthal's number
+        template <typename Container>
+        Container pmergeMe(Container values)
+        {
+            size_t inputSize = values.size();
 
+            // Create pair of numbers. 1 2 -> (1, 2)
+            GroupedPairs pairedValues = initializePairs(values);
+            
+            size_t group_size = 2;
+
+            // Merging and swapping pairs
+            while (isPairable(inputSize, group_size)) 
+            { 
+                pairedValues = mergeAndSwap(pairedValues);
+                group_size *= 2;
+            }
+            
+            // Container result = convertPairsToVector(pairedValues);
+            Container result = convertPairsToContainer<Container>(pairedValues);
+
+            return mergeInsertionSort(result, group_size);
+        }
+
+        
 };
 
 #endif
