@@ -12,9 +12,7 @@ class PmergeMe {
         int     _toRemove;                  //gambiarra to remove a possible extra element added
 		PmergeMe(const PmergeMe &src);
 		PmergeMe&		operator=(const PmergeMe &rhs);
-		std::vector<int> convertInputIntoAVector(char **);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
-        void splitSortInsert(GroupedPairs &pairedVector, size_t group_size);
         void mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mergedPairs);
         void addInOrder(GroupedPairs &mergedPairs, const GroupedPairs &input, size_t i);
         bool isPairable(size_t inputSize, size_t groupSize);
@@ -23,18 +21,18 @@ class PmergeMe {
         void extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend);
         void removeExtraElements(std::__1::vector<int> &result);
         void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
-        void NewFunction(GroupedPairs &pend, GroupedPairs &main);
         void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
         void printGroupedPairs(const GroupedPairs &groups);
         GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
         GroupedPairs getOdd(GroupedPairs &pairedVector);
         void printVector(std::__1::vector<int> &result, const std::string &msg);
+        GroupedPairs makeGroups(const std::vector<int>& result, size_t group_size);
         
         public:
 		PmergeMe();
 		~PmergeMe();
-        void pmergeMe(char **);
+        void pmergeMe(std::vector<int> values);
 
 };
 

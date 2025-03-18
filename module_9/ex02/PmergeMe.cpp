@@ -18,7 +18,7 @@ PmergeMe::~PmergeMe()
 }
 
 //Make groups of group_size size and what doesn't fit in the group is added to the last group
-GroupedPairs makeGroups(const std::vector<int>& result, size_t group_size) {
+GroupedPairs PmergeMe::makeGroups(const std::vector<int>& result, size_t group_size) {
     GroupedPairs groups;
     size_t i = 0;
     while (i < result.size()) {
@@ -145,23 +145,6 @@ void PmergeMe::mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mer
     mergedPairs.push_back(group);
 }
 
-std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
-{
-    (void) argv;
-    // Define a vector and manually insert elements (C++98 compatible)
-    std::vector<int> values;
-    int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7, 33};
-    // int arr[] = {23, 5, 17, 42, 8, 36, 29, 14, 50, 7, 3, 48, 11, 20, 39, 25, 9, 31, 45, 16, 6, 38, 2, 44, 28, 21, 19, 33, 12, 27};
-
-    size_t size = sizeof(arr) / sizeof(arr[0]);
-
-    // Copy elements from the array into the vector
-    for (size_t i = 0; i < size; ++i) {
-        values.push_back(arr[i]);
-    }
-    return values;
-}
-
 std::vector<int> PmergeMe::convertPairsToVector(const GroupedPairs& pairedValues) {
     std::vector<int> result;
     for (size_t i = 0; i < pairedValues.size(); i++) {
@@ -252,9 +235,8 @@ void PmergeMe::log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, Gr
 //Pair the input into pairs of numbers
 //Merge and swap the pairs into pairs of pairs and so on
 //Finally apply merge-insertion sort using Jacobsthal's number
-void PmergeMe::pmergeMe(char **argv)
+void PmergeMe::pmergeMe(std::vector<int> values)
 {
-    std::vector<int> values = convertInputIntoAVector(argv);
     size_t inputSize = values.size();
 
     // Create pair of numbers. 1 2 -> (1, 2)
