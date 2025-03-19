@@ -177,6 +177,15 @@ std::vector<int> PmergeMe::convertPairsToVector(const GroupedPairs& pairedValues
     return result;
 }
 
+void PmergeMe::printContainer(const std::vector<int>& container, const std::string& msg) {
+    std::cout << msg;
+    for (size_t i = 0; i < container.size(); i++) {
+        std::cout << container[i];
+        if (i < container.size() - 1) std::cout << ", ";
+    }
+    std::cout << std::endl;
+}
+
 GroupedPairs PmergeMe::getRest(GroupedPairs &pairedVector) {
     GroupedPairs rest;
     size_t lastGroupSize = pairedVector.back().size();

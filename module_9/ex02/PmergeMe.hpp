@@ -24,6 +24,7 @@ class PmergeMe {
         void printVector(std::__1::vector<int> &result, const std::string &msg);
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
+        void printContainer(const std::vector<int> &container, const std::string &msg);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
         GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
@@ -119,7 +120,9 @@ class PmergeMe {
             // Container result = convertPairsToVector(pairedValues);
             Container result = convertPairsToContainer<Container>(pairedValues);
 
-            return mergeInsertionSort(result, group_size);
+            result = mergeInsertionSort(result, group_size);
+            printContainer(result, "Sorted container: ");
+            return result;
         }
 
         
