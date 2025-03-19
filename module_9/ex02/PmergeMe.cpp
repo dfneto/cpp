@@ -204,18 +204,18 @@ void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
 }
 
 //This should be done ideally using jacobsthal's number
-void PmergeMe::moveFromTo(GroupedPairs &vec, GroupedPairs &main)
+void PmergeMe::moveFromTo(GroupedPairs &pend, GroupedPairs &main)
 {
-    if (!vec.empty())
+    if (!pend.empty())
     {
-        for (size_t i = 0; i < vec.size(); i++)
+        for (size_t i = 0; i < pend.size(); i++)
         {
             for (size_t j = 0; j < main.size(); j++)
             {
-                if (vec[i].back() <= main[j].back())
+                if (pend[i].back() <= main[j].back())
                 {
                     PmergeMe::nbrOfComps++;
-                    main.insert(main.begin() + j, vec[i]);
+                    main.insert(main.begin() + j, pend[i]);
                     break;
                 }
             }
@@ -274,7 +274,7 @@ std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group
     // log(pend, main, odd, rest);
 
     moveFromTo(pend, main);
-    moveFromTo(odd, main);
+    moveFromOddToMain(odd, main);
 
     //Add odd and rest to main
     main.insert(main.end(), odd.begin(), odd.end());
@@ -288,4 +288,26 @@ std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group
         return result;
     }
     return mergeInsertion(result, group_size);
+}
+
+// TODO: deveria ser igual ao moveFromTo, mas aqui preciso fazer odd.pop_back 
+// e não sei pq.
+void PmergeMe::moveFromOddToMain(GroupedPairs &odd, GroupedPairs &main)
+{
+    if (!odd.empty())
+    {
+        for (size_t i = 0; i < odd.size(); i++)
+        {
+            for (size_t j = 0; j < main.size(); j++)
+            {
+                if (odd[i].back() <= main[j].back())
+                {
+                    PmergeMe::nbrOfComps++;
+                    main.insert(main.begin() + j, odd[i]);
+                    odd.pop_back();
+                    break;
+                }
+            }
+        }
+    }
 }

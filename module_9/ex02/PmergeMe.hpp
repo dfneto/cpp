@@ -25,6 +25,7 @@ class PmergeMe {
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
         std::vector<int> mergeInsertion(std::vector<int> &result, size_t group_size);
+        void moveFromOddToMain(GroupedPairs &odd, GroupedPairs &main);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
         GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
