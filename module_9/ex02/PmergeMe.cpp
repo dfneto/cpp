@@ -20,41 +20,21 @@ PmergeMe::~PmergeMe()
 }
 
 //Make groups of group_size size and what doesn't fit in the group is added to the last group
-GroupedPairs PmergeMe::makeGroups(const std::vector<int>& result, size_t group_size) {
-    GroupedPairs groups;
-    size_t i = 0;
-    while (i < result.size()) {
-        std::vector<int> group;
-        size_t j = 0;
-        while (j < group_size && i + j < result.size()) {
-            group.push_back(result[i + j]);
-            j++;
-        }
-        groups.push_back(group);
-        i += group_size;
-    }
-    return groups;
-}
-
-template <typename Container>
-GroupedPairs PmergeMe::makeGroups(const Container& result, size_t group_size) {
-    GroupedPairs groups;
-    typename Container::const_iterator it = result.begin();
-    
-    while (it != result.end()) {
-        std::vector<int> group;
-        size_t j = 0;
-        
-        // Create groups with `group_size` elements
-        while (j < group_size && it != result.end()) {
-            group.push_back(*it);
-            ++it;
-            ++j;
-        }
-        groups.push_back(group);
-    }
-    return groups;
-}
+// GroupedPairs PmergeMe::makeGroups(const std::vector<int>& result, size_t group_size) {
+//     GroupedPairs groups;
+//     size_t i = 0;
+//     while (i < result.size()) {
+//         std::vector<int> group;
+//         size_t j = 0;
+//         while (j < group_size && i + j < result.size()) {
+//             group.push_back(result[i + j]);
+//             j++;
+//         }
+//         groups.push_back(group);
+//         i += group_size;
+//     }
+//     return groups;
+// }
 
 void PmergeMe::printVector(std::__1::vector<int> &result, const std::string &msg)
 {
@@ -83,33 +63,33 @@ void PmergeMe::printGroupedPairs(const GroupedPairs& groups) {
 // Function to initialize pairing from a list of numbers. Eg:
 // input: 11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7
 // output: (2, 11) (0, 17) (8, 16) (6, 15) (3, 10) (1, 21) (9, 18) (14, 19) (5, 12) (4, 20) (7, 13)
-GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
-    GroupedPairs pairedValues;
+// GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
+//     GroupedPairs pairedValues;
 
-    for (size_t i = 0; i + 1 < values.size(); i += 2) {
-        std::vector<int> pair;
-        if (values[i] < values[i+1]) {
-            pair.push_back(values[i]);
-            pair.push_back(values[i + 1]);
-        } else {
-            pair.push_back(values[i + 1]);
-            pair.push_back(values[i]);
-        }
-        pairedValues.push_back(pair);
-    }
+//     for (size_t i = 0; i + 1 < values.size(); i += 2) {
+//         std::vector<int> pair;
+//         if (values[i] < values[i+1]) {
+//             pair.push_back(values[i]);
+//             pair.push_back(values[i + 1]);
+//         } else {
+//             pair.push_back(values[i + 1]);
+//             pair.push_back(values[i]);
+//         }
+//         pairedValues.push_back(pair);
+//     }
 
-    // If an odd element is left pair it with himself
-    // and remove it in the end
-    if (values.size() % 2 != 0) {
-        std::vector<int> lastPair ;
-        lastPair.push_back(values.back());
-        lastPair.push_back(values.back());
-        _toRemove = values.back();
-        pairedValues.push_back(lastPair);
-    }
+//     // If an odd element is left pair it with himself
+//     // and remove it in the end
+//     if (values.size() % 2 != 0) {
+//         std::vector<int> lastPair ;
+//         lastPair.push_back(values.back());
+//         lastPair.push_back(values.back());
+//         _toRemove = values.back();
+//         pairedValues.push_back(lastPair);
+//     }
 
-    return pairedValues;
-}
+//     return pairedValues;
+// }
 
 // Can I pair the values?
 // When the order reaches 16, it is less than half the size of the list. 
@@ -177,14 +157,7 @@ std::vector<int> PmergeMe::convertPairsToVector(const GroupedPairs& pairedValues
     return result;
 }
 
-void PmergeMe::printContainer(const std::vector<int>& container, const std::string& msg) {
-    std::cout << msg;
-    for (size_t i = 0; i < container.size(); i++) {
-        std::cout << container[i];
-        if (i < container.size() - 1) std::cout << ", ";
-    }
-    std::cout << std::endl;
-}
+
 
 GroupedPairs PmergeMe::getRest(GroupedPairs &pairedVector) {
     GroupedPairs rest;
@@ -220,27 +193,19 @@ void PmergeMe::extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPa
 }
 
 //If we added en extra element, remove it
-void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
-{
-    for (size_t i = 0; i < result.size(); i++)
-    {
-        if (result[i] == _toRemove)
-        {
-            result.erase(result.begin() + i);
-            break;
-        }
-    }
-}
+// void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
+// {
+//     for (size_t i = 0; i < result.size(); i++)
+//     {
+//         if (result[i] == _toRemove)
+//         {
+//             result.erase(result.begin() + i);
+//             break;
+//         }
+//     }
+// }
 
-template <typename Container>
-void PmergeMe::removeExtraElements(Container& result) {
-    for (size_t i = 0; i < result.size(); i++) {
-        if (result[i] == _toRemove) {
-            result.erase(result.begin() + i);
-            break;
-        }
-    }
-}
+
 
 //This should be done ideally using jacobsthal's number
 void PmergeMe::moveFromTo(GroupedPairs &vec, GroupedPairs &main)

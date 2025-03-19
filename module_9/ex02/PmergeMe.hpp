@@ -17,19 +17,15 @@ class PmergeMe {
         void mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mergedPairs);
         void addInOrder(GroupedPairs &mergedPairs, const GroupedPairs &input, size_t i);
         void extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend);
-        void removeExtraElements(std::__1::vector<int> &result);
         void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
         void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
         void printGroupedPairs(const GroupedPairs &groups);
         void printVector(std::__1::vector<int> &result, const std::string &msg);
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
-        void printContainer(const std::vector<int> &container, const std::string &msg);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
-        GroupedPairs initializePairs(const std::vector<int>& values);
         GroupedPairs getRest(GroupedPairs &pairedVector);
         GroupedPairs getOdd(GroupedPairs &pairedVector);
-        GroupedPairs makeGroups(const std::vector<int>& result, size_t group_size);
 
         template <typename Container>
         Container convertPairsToContainer(const GroupedPairs& pairedValues) {
@@ -43,10 +39,25 @@ class PmergeMe {
         }
 
         template <typename Container>
-        void removeExtraElements(Container& result);
+        GroupedPairs makeGroups(const Container& result, size_t group_size) {
+            GroupedPairs groups;
+            typename Container::const_iterator it = result.begin();
+            
+            while (it != result.end()) {
+                std::vector<int> group;
+                size_t j = 0;
+                
+                // Create groups with `group_size` elements
+                while (j < group_size && it != result.end()) {
+                    group.push_back(*it);
+                    ++it;
+                    ++j;
+                }
+                groups.push_back(group);
+            }
+            return groups;
+        }
 
-        template <typename Container>
-        GroupedPairs makeGroups(const Container& result, size_t group_size);
 
         template <typename Container>
         Container mergeInsertionSort(Container& result, size_t group_size) {
@@ -90,12 +101,63 @@ class PmergeMe {
             return mergeInsertionSort(result, group_size);
         }
 
+        template <typename Container>
+        void removeExtraElements(Container& result) {
+            for (size_t i = 0; i < result.size(); i++) {
+                if (result[i] == _toRemove) {
+                    result.erase(result.begin() + i);
+                    break;
+                }
+            }
+        }
+
+        template <typename Container>
+        void printContainer(Container& container, const std::string& msg) {
+            std::cout << msg;
+            for (size_t i = 0; i < container.size(); i++) {
+                std::cout << container[i];
+                if (i < container.size() - 1) std::cout << ", ";
+            }
+            std::cout << std::endl;
+        }
+
+        template <typename Container>
+        GroupedPairs initializePairs(const Container& values) {
+            GroupedPairs pairedValues;
+
+            // Iterate over the container to create pairs
+            for (typename Container::size_type i = 0; i + 1 < values.size(); i += 2) {
+                std::vector<int> pair;  // Always use std::vector<int> for pairs
+                if (values[i] < values[i + 1]) {
+                    pair.push_back(values[i]);
+                    pair.push_back(values[i + 1]);
+                } else {
+                    pair.push_back(values[i + 1]);
+                    pair.push_back(values[i]);
+                }
+                pairedValues.push_back(pair);
+            }
+
+            // If an odd element is left, pair it with itself and remove it in the end
+            if (values.size() % 2 != 0) {
+                std::vector<int> lastPair;  // Always use std::vector<int> for the last pair
+                lastPair.push_back(values.back());
+                lastPair.push_back(values.back());
+                _toRemove = values.back();
+                pairedValues.push_back(lastPair);
+            }
+
+            return pairedValues;
+        }
+
         
         public:
         static int  nbrOfComps;
 		
         PmergeMe();
 		~PmergeMe();
+
+        
         
         //Pair the input into pairs of numbers
         //Merge and swap the pairs into pairs of pairs and so on
@@ -125,7 +187,6 @@ class PmergeMe {
             return result;
         }
 
-        
 };
 
 #endif

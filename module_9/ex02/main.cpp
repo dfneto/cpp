@@ -113,8 +113,10 @@ static bool retained_original_values(std::set<int>& original_values, std::vector
 {
 	for (int i = 0; i < (int)vec.size(); i++)
 	{
-		if (original_values.find(vec[i]) == original_values.end())
+		if (original_values.find(vec[i]) == original_values.end()) {
+            std::cout << "Value " << vec[i] << " was not in the original set.\n";
 			return false;
+        }
 		original_values.erase(vec[i]);
 	}
 	return true;
@@ -138,11 +140,11 @@ int main(int argc, char** argv)
     clock_t end_vec = clock();
     double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
 
-    // clock_t start_deque = clock();
-    // std::deque<int> deque = argv_to_deque(argc, argv);
-    // pm.sort_deque(deque);
-    // clock_t end_deque = clock();
-    // double time_elapsed_deque = static_cast<double>(end_deque - start_deque) / CLOCKS_PER_SEC;
+    clock_t start_deque = clock();
+    std::deque<int> deque = argv_to_deque(argc, argv);
+    deque = pm.pmergeMe(deque);
+    clock_t end_deque = clock();
+    double time_elapsed_deque = static_cast<double>(end_deque - start_deque) / CLOCKS_PER_SEC;
 
     //TODO: entender isso
     if (!is_sorted(vec) || (int)vec.size() != (argc - 1) || !retained_original_values(original_values, vec))
@@ -150,20 +152,20 @@ int main(int argc, char** argv)
         std::cout << "Vector was not sorted properly.\n";
 		return 1;
 	}
-    // if (!is_sorted(deque) || (int)deque.size() != (argc - 1))
-	// {
-    //     std::cout << "Deque was not sorted properly.\n";
-	// 	return 1;
-	// }
+    if (!is_sorted(deque) || (int)deque.size() != (argc - 1))
+	{
+        std::cout << "Deque was not sorted properly.\n";
+		return 1;
+	}
 
     std::cout << "\033[31mBefore\033[00m: " << argv_to_str(argc, argv) << "\n";
     std::cout << "\033[32mAfter\033[00m:  " << vec_to_str(vec) << "\n";
     std::cout << "Time to process a range of " << vec.size()
               << " elements with std::vector: " << std::fixed << std::setprecision(6)
                << time_elapsed_vec << "s\n";
-    // std::cout << "Time to process a range of " << deque.size()
-    //           << " elements with std::deque:  " << std::fixed << std::setprecision(6)
-    //           << time_elapsed_deque << "s\n";
+    std::cout << "Time to process a range of " << deque.size()
+              << " elements with std::deque:  " << std::fixed << std::setprecision(6)
+              << time_elapsed_deque << "s\n";
 	std::cout << "Number of comparisons: " << PmergeMe::nbrOfComps << '\n';
 }
 
