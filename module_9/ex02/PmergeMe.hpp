@@ -61,7 +61,18 @@ class PmergeMe {
 
             extract(pairedVector, main, pend);
             moveFromTo(pend, main);
-            moveFromTo(odd, main);
+            // moveFromTo(odd, main);
+            if (!odd.empty())
+            {
+                for (size_t i = 0; i < main.size(); i++)
+                {
+                    if (odd.back().back() < main[i].back()) {
+                        main.insert(main.begin() + i, odd.back());
+                        odd.pop_back();
+                        break;
+                    }
+                }
+            }
 
             // Add odd and rest to main
             main.insert(main.end(), odd.begin(), odd.end());
