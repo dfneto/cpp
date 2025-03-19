@@ -1,0 +1,5 @@
+Este código me baseei no link https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91, mas não fiz bem a parte de inserção usando jacbosthal number.
+
+A branch que uso templates não está de toda correta porque GroupedPairs é um vetor de vetor de inteiros e não um container de container de inteiros
+
+Por fim o metódo moveFromOddToMain deveria ser o mesmo do moveFromTo, mas não sei por quê não funcionava quando usava o mesmo método para odd (algo com odd.pop_back).

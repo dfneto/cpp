@@ -3,46 +3,42 @@
 
 #include	<iostream> 	//cout, cerr
 #include	<vector>
-#include 	<deque>
 
 
 typedef std::vector<std::vector<int> > GroupedPairs;
-// Overload operator<< for GroupedPairs
-inline std::ostream& operator<<(std::ostream& os, const GroupedPairs& pairs) {
-    // os << "[";
-    for (std::vector<std::vector<int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
-        os << " [";
-        for (std::vector<int>::const_iterator vit = it->begin(); vit != it->end(); ++vit) {
-            os << *vit;
-            if (vit + 1 != it->end()) os << ", "; // Avoid trailing comma
-        }
-        os << "]";
-    }
-    // os << " ]";
-    return os;
-}
 
 class PmergeMe {
 	private:
+        int         _toRemove;                  //gambiarra to remove a possible extra element added
+
 		PmergeMe(const PmergeMe &src);
 		PmergeMe&		operator=(const PmergeMe &rhs);
-		std::vector<int> convertInputIntoAVector(char **);
-		void mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mergedPairs);
-		void addInOrder(GroupedPairs &mergedPairs, const GroupedPairs &input, size_t i);
-		GroupedPairs generatePairs(const GroupedPairs& input);
-		void printGroupedPairs(const GroupedPairs& groups);
-		bool isPairable(GroupedPairs &pairedValues);
-		GroupedPairs initializePairs(const std::vector<int>& values);
-		std::deque<GroupedPairs> splitPairs(const std::vector<int> & group);
+
+        void mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mergedPairs);
+        void addInOrder(GroupedPairs &mergedPairs, const GroupedPairs &input, size_t i);
+        void extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend);
+        void removeExtraElements(std::__1::vector<int> &result);
+        void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
+        void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
+        void printGroupedPairs(const GroupedPairs &groups);
+        void printVector(std::__1::vector<int> &result, const std::string &msg);
+        bool isPairable(size_t inputSize, size_t groupSize);
+        std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
+        std::vector<int> mergeInsertion(std::vector<int> &result, size_t group_size);
+        void moveFromOddToMain(GroupedPairs &odd, GroupedPairs &main);
+        GroupedPairs mergeAndSwap(const GroupedPairs &input);
+        GroupedPairs initializePairs(const std::vector<int>& values);
+        GroupedPairs getRest(GroupedPairs &pairedVector);
+        GroupedPairs getOdd(GroupedPairs &pairedVector);
+        GroupedPairs makeGroups(const std::vector<int>& result, size_t group_size);
+        
+    public:
+        static int  nbrOfComps;
 		
-
-
-	public:
-		PmergeMe();
+        PmergeMe();
 		~PmergeMe();
-        void pmergeMe(char **);
+        std::vector<int> pmergeMe(std::vector<int> values);
 
-        std::vector<int> & pairAndSwap(size_t group_size, std::vector<int> &values);
 };
 
 #endif

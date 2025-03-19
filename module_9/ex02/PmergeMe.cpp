@@ -1,27 +1,9 @@
 #include "PmergeMe.hpp"
 
+int PmergeMe::nbrOfComps = 0;
+
 PmergeMe::PmergeMe(const PmergeMe &src) {
     (void) src;
-}
-
-// Define the splitPairs function
-std::deque<GroupedPairs> PmergeMe::splitPairs(const std::vector<int> & group) {
-    std::deque<GroupedPairs> main;
-    GroupedPairs    b;
-    std::vector<int> b_;
-    GroupedPairs    a;
-    std::vector<int> a_;
-    for (size_t i = 0; i < group.size(); ++i) {
-        if (i < group.size() / 2)
-            b_.push_back(group[i]);
-        else
-            a_.push_back(group[i]);
-    }
-    b.push_back(b_);
-    a.push_back(a_);
-    main.push_back(b);
-    main.push_back(a);
-    return main;
 }
 
 PmergeMe&		PmergeMe::operator=(const PmergeMe &rhs) {
@@ -29,12 +11,41 @@ PmergeMe&		PmergeMe::operator=(const PmergeMe &rhs) {
     return *this;
 }
 
-PmergeMe::PmergeMe()
+PmergeMe::PmergeMe() : _toRemove(-1)
 {
 }
 
 PmergeMe::~PmergeMe()
 {
+}
+
+//Make groups of group_size size and what doesn't fit in the group is added to the last group
+GroupedPairs PmergeMe::makeGroups(const std::vector<int>& result, size_t group_size) {
+    GroupedPairs groups;
+    size_t i = 0;
+    while (i < result.size()) {
+        std::vector<int> group;
+        size_t j = 0;
+        while (j < group_size && i + j < result.size()) {
+            group.push_back(result[i + j]);
+            j++;
+        }
+        groups.push_back(group);
+        i += group_size;
+    }
+    return groups;
+}
+
+void PmergeMe::printVector(std::__1::vector<int> &result, const std::string &msg)
+{
+    std::cout << msg << ": ";
+    for (size_t i = 0; i < result.size(); i++)
+    {
+        std::cout << result[i];
+        if (i != result.size() - 1)
+            std::cout << ", ";
+    }
+    std::cout << std::endl;
 }
 
 void PmergeMe::printGroupedPairs(const GroupedPairs& groups) {
@@ -49,7 +60,9 @@ void PmergeMe::printGroupedPairs(const GroupedPairs& groups) {
     std::cout << std::endl;
 }
 
-// Function to initialize pairing from a list of numbers
+// Function to initialize pairing from a list of numbers. Eg:
+// input: 11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7
+// output: (2, 11) (0, 17) (8, 16) (6, 15) (3, 10) (1, 21) (9, 18) (14, 19) (5, 12) (4, 20) (7, 13)
 GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
     GroupedPairs pairedValues;
 
@@ -65,36 +78,32 @@ GroupedPairs PmergeMe::initializePairs(const std::vector<int>& values) {
         pairedValues.push_back(pair);
     }
 
-    // TODO: fix this shit
     // If an odd element is left pair it with himself
+    // and remove it in the end
     if (values.size() % 2 != 0) {
         std::vector<int> lastPair ;
         lastPair.push_back(values.back());
         lastPair.push_back(values.back());
+        _toRemove = values.back();
         pairedValues.push_back(lastPair);
     }
 
     return pairedValues;
 }
 
-//Can I pair the values?
-bool PmergeMe::isPairable(GroupedPairs &pairedValues)
+// Can I pair the values?
+// When the order reaches 16, it is less than half the size of the list. 
+// In other words, we cannot make two pairs to swap them. At this point, 
+// we start using insertion. We divide the order by 2 and start sorting using insertion.
+bool PmergeMe::isPairable(size_t inputSize, size_t groupSize)
 {
-    // When the order reaches 16, it is less than half the size of the list. 
-    // In other words, we cannot make two pairs to swap them. At this point, 
-    // we start using insertion. We divide the order by 2 and start sorting using insertion.
-    // std::cout << "First pair size: " << pairedValues[0].size() << std::endl;
-    // std::cout << "group size: " << pairedValues.size() << std::endl;
-    if (pairedValues[0].size() == pairedValues[1].size())
-    {
-        return true;
-    }
-    return false;
+    if (groupSize > inputSize / 2)
+        return false;
+    return true;
 }
 
-// TODO: condição de parada aqui? Acho que somente se eu transformar de while para recursivo
 // Function to merge adjacent groups (elements are the name of groups of numbers)
-GroupedPairs PmergeMe::generatePairs(const GroupedPairs& input) {
+GroupedPairs PmergeMe::mergeAndSwap(const GroupedPairs& input) {
     GroupedPairs mergedPairs;
 
     // Merge adjacent groups
@@ -138,72 +147,167 @@ void PmergeMe::mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mer
     mergedPairs.push_back(group);
 }
 
-std::vector<int> PmergeMe::convertInputIntoAVector(char **argv)
-{
-    (void) argv;
-    // Define a vector and manually insert elements (C++98 compatible)
-    std::vector<int> values;
-    int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7};
-    // int arr[] = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7, 40, 41, 42, 43, 44, 45, 46, 47, 48};
-    size_t size = sizeof(arr) / sizeof(arr[0]);
-
-
-    std::cout << "[";
-    // Copy elements from the array into the vector
-    for (size_t i = 0; i < size; ++i) {
-        values.push_back(arr[i]);
-        std::cout << arr[i];
-        if (i != size - 1)
-            std::cout << ", ";
-        else 
-            // std::cout << std::endl;
-            std::cout << "]" << std::endl;
-    }
-    return values;
-}
-
-void printVector(const std::vector<int>& vec) {
-    std::cout << "[";
-    for (size_t i = 0; i < vec.size(); i++) {
-        std::cout << vec[i];
-        if (i < vec.size() - 1) {
-            std::cout << ", ";  // Add a comma between elements
+std::vector<int> PmergeMe::convertPairsToVector(const GroupedPairs& pairedValues) {
+    std::vector<int> result;
+    for (size_t i = 0; i < pairedValues.size(); i++) {
+        for (size_t j = 0; j < pairedValues[i].size(); j++) {
+            result.push_back(pairedValues[i][j]);
         }
     }
-    std::cout << "]" << std::endl;
+    return result;
 }
 
-//Pair and merge the input into elements (pair of numbers, pair of pair of numbers etc.)
-void PmergeMe::pmergeMe(char **argv)
-{
-    std::vector<int> values = convertInputIntoAVector(argv);
-
-    //compare pairs of group_size and swap
-    size_t group_size = 1;
-
-    values = pairAndSwap(group_size, values);
-    printVector(values);
+GroupedPairs PmergeMe::getRest(GroupedPairs &pairedVector) {
+    GroupedPairs rest;
+    size_t lastGroupSize = pairedVector.back().size();
+    if (lastGroupSize != pairedVector[0].size()) {
+        rest = makeGroups(pairedVector.back(), pairedVector.back().size());
+        pairedVector.erase(pairedVector.end() - 1);
+    }
+    return rest;
 }
 
-std::vector<int> & PmergeMe::pairAndSwap(size_t group_size, std::vector<int> &values)
+GroupedPairs PmergeMe::getOdd(GroupedPairs &pairedVector) {
+    GroupedPairs odd;
+    if (pairedVector.size() % 2 == 1) {
+        odd = makeGroups(pairedVector.back(), pairedVector.back().size());
+        pairedVector.erase(pairedVector.end() - 1);
+    }
+    return odd;
+}
+
+//Extract main and pend vector from pairedVector
+void PmergeMe::extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend)
 {
-    int temp;
-
-    if (group_size > values.size()/2) 
-        return values;
-
-    for (size_t i = group_size - 1; i + group_size < values.size(); i += 2 * group_size)
+    for (size_t i = 0; i < pairedVector.size(); i++)
     {
-        if (values[i] > values[i + group_size])
+        if (i < 2)
+            main.push_back(pairedVector[i]);
+        else if (i % 2 == 1)
+            main.push_back(pairedVector[i]);
+        else if (i % 2 == 0)
+            pend.push_back(pairedVector[i]);
+    }
+}
+
+//If we added en extra element, remove it
+void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
+{
+    for (size_t i = 0; i < result.size(); i++)
+    {
+        if (result[i] == _toRemove)
         {
-            temp = values[i + group_size];
-            values[i + group_size] = values[i];
-            values[i] = temp;
+            result.erase(result.begin() + i);
+            break;
         }
     }
+}
 
-    group_size = group_size * 2;
+//This should be done ideally using jacobsthal's number
+void PmergeMe::moveFromTo(GroupedPairs &pend, GroupedPairs &main)
+{
+    if (!pend.empty())
+    {
+        for (size_t i = 0; i < pend.size(); i++)
+        {
+            for (size_t j = 0; j < main.size(); j++)
+            {
+                if (pend[i].back() <= main[j].back())
+                {
+                    PmergeMe::nbrOfComps++;
+                    main.insert(main.begin() + j, pend[i]);
+                    break;
+                }
+            }
+        }
+    }
+}
 
-    // printVector(values);
-    return pairAndSwap(group_size, values);
+void PmergeMe::log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest)
+{
+    std::cout << "Pend: ";
+    printGroupedPairs(pend);
+    std::cout << "Main: ";
+    printGroupedPairs(main);
+    std::cout << "Odd: ";
+    printGroupedPairs(odd);
+    std::cout << "Rest: ";
+    printGroupedPairs(rest);
+}
+
+//Pair the input into pairs of numbers
+//Merge and swap the pairs into pairs of pairs and so on
+//Finally apply merge-insertion sort using Jacobsthal's number
+std::vector<int> PmergeMe::pmergeMe(std::vector<int> values)
+{
+    size_t inputSize = values.size();
+
+    // Create pair of numbers. 1 2 -> (1, 2)
+    GroupedPairs pairedValues = initializePairs(values);
+    
+    size_t group_size = 2;
+
+    // Merging and swapping pairs
+    while (isPairable(inputSize, group_size)) 
+    { 
+        pairedValues = mergeAndSwap(pairedValues);
+        group_size *= 2;
+    }
+    
+    std::vector<int> result = convertPairsToVector(pairedValues);
+
+    return mergeInsertion(result, group_size);
+}
+
+// Define the mergeInsertion function
+std::vector<int> PmergeMe::mergeInsertion(std::vector<int>& result, size_t group_size) {
+    group_size /= 2;                                                           
+    GroupedPairs pairedVector = makeGroups(result, group_size);
+    
+    GroupedPairs main;
+    GroupedPairs pend;
+    GroupedPairs rest = getRest(pairedVector);
+    GroupedPairs odd = getOdd(pairedVector);
+
+    extract(pairedVector, main, pend);
+
+    // log(pend, main, odd, rest);
+
+    moveFromTo(pend, main);
+    moveFromOddToMain(odd, main);
+
+    //Add odd and rest to main
+    main.insert(main.end(), odd.begin(), odd.end());
+    main.insert(main.end(), rest.begin(), rest.end());
+
+    result = convertPairsToVector(main);
+    
+    if (group_size == 1)
+    {
+        removeExtraElements(result);
+        return result;
+    }
+    return mergeInsertion(result, group_size);
+}
+
+// TODO: deveria ser igual ao moveFromTo, mas aqui preciso fazer odd.pop_back 
+// e não sei pq.
+void PmergeMe::moveFromOddToMain(GroupedPairs &odd, GroupedPairs &main)
+{
+    if (!odd.empty())
+    {
+        for (size_t i = 0; i < odd.size(); i++)
+        {
+            for (size_t j = 0; j < main.size(); j++)
+            {
+                if (odd[i].back() <= main[j].back())
+                {
+                    PmergeMe::nbrOfComps++;
+                    main.insert(main.begin() + j, odd[i]);
+                    odd.pop_back();
+                    break;
+                }
+            }
+        }
+    }
 }
