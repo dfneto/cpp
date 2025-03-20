@@ -3,6 +3,7 @@
 
 #include	<iostream> 	//cout, cerr
 #include	<vector>
+#include    <deque>
 
 
 typedef std::vector<std::vector<int> > GroupedPairs;
@@ -20,7 +21,7 @@ class PmergeMe {
         void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
         void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
         void printGroupedPairs(const GroupedPairs &groups);
-        void printVector(std::__1::vector<int> &result, const std::string &msg);
+        void printVector(std::vector<int> &result, const std::string &msg);
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
         GroupedPairs mergeAndSwap(const GroupedPairs &input);
@@ -151,25 +152,22 @@ class PmergeMe {
         }
 
         
-        public:
+    public:
         static int  nbrOfComps;
-		
         PmergeMe();
-		~PmergeMe();
-
-        
-        
+        ~PmergeMe();
+    
         //Pair the input into pairs of numbers
         //Merge and swap the pairs into pairs of pairs and so on
         //Finally apply merge-insertion sort using Jacobsthal's number
         template <typename Container>
         Container pmergeMe(Container values)
         {
-            size_t inputSize = values.size();
-
             // Create pair of numbers. 1 2 -> (1, 2)
             GroupedPairs pairedValues = initializePairs(values);
-            
+
+            size_t inputSize = _toRemove ? values.size() + 1 : values.size();
+
             size_t group_size = 2;
 
             // Merging and swapping pairs
@@ -179,7 +177,6 @@ class PmergeMe {
                 group_size *= 2;
             }
             
-            // Container result = convertPairsToVector(pairedValues);
             Container result = convertPairsToContainer<Container>(pairedValues);
 
             result = mergeInsertionSort(result, group_size);

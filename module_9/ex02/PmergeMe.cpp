@@ -36,7 +36,7 @@ PmergeMe::~PmergeMe()
 //     return groups;
 // }
 
-void PmergeMe::printVector(std::__1::vector<int> &result, const std::string &msg)
+void PmergeMe::printVector(std::vector<int> &result, const std::string &msg)
 {
     std::cout << msg << ": ";
     for (size_t i = 0; i < result.size(); i++)
@@ -193,7 +193,7 @@ void PmergeMe::extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPa
 }
 
 //If we added en extra element, remove it
-// void PmergeMe::removeExtraElements(std::__1::vector<int> &result)
+// void PmergeMe::removeExtraElements(std::vector<int> &result)
 // {
 //     for (size_t i = 0; i < result.size(); i++)
 //     {
