@@ -17,11 +17,11 @@ class PmergeMe {
         void mergePairs(const GroupedPairs &input, size_t i, GroupedPairs &mergedPairs);
         void addInOrder(GroupedPairs &mergedPairs, const GroupedPairs &input, size_t i);
         void extract(GroupedPairs &pairedVector, GroupedPairs &main, GroupedPairs &pend);
-        void removeExtraElements(std::__1::vector<int> &result);
+        void removeExtraElements(std::vector<int> &result);
         void moveFromTo(GroupedPairs &pend, GroupedPairs &main);
         void log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, GroupedPairs &rest);
         void printGroupedPairs(const GroupedPairs &groups);
-        void printVector(std::__1::vector<int> &result, const std::string &msg);
+        void printVector(std::vector<int> &result, const std::string &msg);
         bool isPairable(size_t inputSize, size_t groupSize);
         std::vector<int> convertPairsToVector(const GroupedPairs &pairedValues);
         std::vector<int> mergeInsertion(std::vector<int> &result, size_t group_size);
