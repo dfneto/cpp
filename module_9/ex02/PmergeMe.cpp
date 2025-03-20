@@ -240,11 +240,10 @@ void PmergeMe::log(GroupedPairs &pend, GroupedPairs &main, GroupedPairs &odd, Gr
 //Finally apply merge-insertion sort using Jacobsthal's number
 std::vector<int> PmergeMe::pmergeMe(std::vector<int> values)
 {
-    size_t inputSize = values.size();
-
     // Create pair of numbers. 1 2 -> (1, 2)
     GroupedPairs pairedValues = initializePairs(values);
     
+    size_t inputSize = _toRemove ? values.size() + 1 : values.size();
     size_t group_size = 2;
 
     // Merging and swapping pairs
