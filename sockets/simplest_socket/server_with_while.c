@@ -9,6 +9,7 @@ int main() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     fcntl(sockfd, F_SETFL, O_NONBLOCK); //entendo que estou dizendo que sockfd não é capaz de bloquear o accept, caso contrário, o accept fica esperando
     //que tenha algo em sockfd (uma conexão) e bloqueia o processo
+    //sem o fcntl não vai entrar no while, pois o accept bloqueia o processo
 
     struct sockaddr_in address;
     address.sin_family = AF_INET;
